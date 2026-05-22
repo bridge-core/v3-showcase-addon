@@ -1,0 +1,46 @@
+{
+  "type": "minecraftBedrock",
+  "name": "V3 Showcase Add-On",
+  "authors": [
+    ""
+  ],
+  "targetVersion": "1.26.20",
+  "experimentalGameplay": {
+    "upcomingCreatorFeatures": false,
+    "experimentalCustomProjectileFeatures": false,
+    "experimentalCreatorCameraFeatures": false,
+    "experimentalVoxelShapeFeatures": false,
+    "enableGameTestFramework": false,
+    "renderDragonFeatures": false,
+    "educationEdition": false
+  },
+  "namespace": "bridge",
+  "packs": {
+    "behaviorPack": "./BP",
+    "resourcePack": "./RP"
+  },
+  "worlds": [
+    "./worlds/*"
+  ],
+  "packDefinitions": {},
+  "compiler": {
+    "plugins": [
+      "generatorScripts",
+      "typeScript",
+      "entityIdentifierAlias",
+      "customEntityComponents",
+      "customItemComponents",
+      "customBlockComponents",
+      "customCommands",
+      "moLang",
+      "formatVersionCorrection",
+      "floatPropertyTruncationFix",
+      [
+        "simpleRewrite",
+        {
+          "packName": "V3 Showcase Add-On"
+        }
+      ]
+    ]
+  }
+}
