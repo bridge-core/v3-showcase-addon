@@ -1,7 +1,8 @@
 import { world, system } from '@minecraft/server'
-import { Round } from './rounds'
+import { RoundManager } from './rounds'
 
 system.run(() => {
-    const round = new Round()
-    round.begin()
+    RoundManager.spawnPoints.push(world.getPlayers()[0].location)
+
+    RoundManager.begin(5)
 })
