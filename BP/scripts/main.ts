@@ -4,5 +4,5 @@ import { RoundManager } from './rounds'
 system.run(() => {
     RoundManager.spawnPoints.push(world.getPlayers()[0].location)
 
-    RoundManager.begin(5)
+    RoundManager.start(5)
 })
