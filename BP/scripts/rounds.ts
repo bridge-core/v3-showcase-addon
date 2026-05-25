@@ -41,6 +41,9 @@ export class RoundManager {
         if (this.trackedEntities.length > 0) return
 
         world.getDimension('overworld').runCommand(`say Round complete!`)
+
+        // Todo: Temporary
+        this.start(5)
     }
 }
 
