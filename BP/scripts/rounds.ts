@@ -1,7 +1,8 @@
-import { world, Vector3, system, CommandPermissionLevel, CustomCommandStatus } from '@minecraft/server'
+import { world, Vector3, system, CommandPermissionLevel, CustomCommandStatus, Entity } from '@minecraft/server'
 
 export class RoundManager {
     public static spawnPoints: Vector3[] = []
+    public static trackedEntities: string[] = []
 
     public static registerSpawnPoint(location: Vector3) {
         this.spawnPoints.push(location)
@@ -21,7 +22,8 @@ export class RoundManager {
             const spawnPoint = spawnPointQueue[index]
             spawnPointQueue.splice(index, 1)
 
-            world.getDimension('overworld').spawnEntity('minecraft:zombie', spawnPoint)
+            const entity = world.getDimension('overworld').spawnEntity('minecraft:zombie', spawnPoint)
+            this.trackedEntities.push(entity.id)
         }
     }
 
@@ -30,11 +32,25 @@ export class RoundManager {
             world.getDimension('overworld').spawnParticle('minecraft:blue_flame_particle', spawnPoint)
         }
     }
+
+    public static onEntityDie(entity: Entity) {
+        if (!this.trackedEntities.includes(entity.id)) return
+
+        this.trackedEntities.splice(this.trackedEntities.indexOf(entity.id), 1)
+
+        if (this.trackedEntities.length > 0) return
+
+        world.getDimension('overworld').runCommand(`say Round complete!`)
+    }
 }
 
 system.runInterval(() => {
     RoundManager.debug()
 }, 10)
+
+world.afterEvents.entityDie.subscribe(event => {
+    RoundManager.onEntityDie(event.deadEntity)
+})
 
 system.beforeEvents.startup.subscribe(({ customCommandRegistry }) => {
     customCommandRegistry.registerCommand(
