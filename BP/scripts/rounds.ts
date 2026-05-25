@@ -24,7 +24,17 @@ export class RoundManager {
             world.getDimension('overworld').spawnEntity('minecraft:zombie', spawnPoint)
         }
     }
+
+    public static debug() {
+        for (const spawnPoint of this.spawnPoints) {
+            world.getDimension('overworld').spawnParticle('minecraft:blue_flame_particle', spawnPoint)
+        }
+    }
 }
+
+system.runInterval(() => {
+    RoundManager.debug()
+}, 10)
 
 system.beforeEvents.startup.subscribe(({ customCommandRegistry }) => {
     customCommandRegistry.registerCommand(
@@ -35,7 +45,9 @@ system.beforeEvents.startup.subscribe(({ customCommandRegistry }) => {
             cheatsRequired: true,
         },
         () => {
-            RoundManager.start(5)
+            system.run(() => {
+                RoundManager.start(5)
+            })
 
             return {
                 status: CustomCommandStatus.Success
@@ -51,9 +63,11 @@ system.beforeEvents.startup.subscribe(({ customCommandRegistry }) => {
             cheatsRequired: true,
         },
         origin => {
-            world.getDimension('overworld').runCommand(`Registering spawn point at ${origin.sourceBlock.location}`)
+            system.run(() => {
+                world.getDimension('overworld').runCommand(`say Registering spawn point at ${origin.sourceEntity.location}`)
+            })
 
-            RoundManager.registerSpawnPoint(origin.sourceBlock.location)
+            RoundManager.registerSpawnPoint(origin.sourceEntity.location)
 
             return {
                 status: CustomCommandStatus.Success
