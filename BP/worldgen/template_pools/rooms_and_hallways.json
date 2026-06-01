@@ -1,0 +1,82 @@
+{
+	"format_version": "1.26.20",
+	"minecraft:template_pool": {
+		"description": {
+			"identifier": "v3:rooms_and_hallways"
+		},
+		"elements": [
+			{
+				"element": {
+					"element_type": "minecraft:single_pool_element",
+					"location": "v3/corner_hallway",
+					"projection": "rigid",
+					"processors": "v3:empty"
+				},
+				"weight": 10
+			},
+			{
+				"element": {
+					"element_type": "minecraft:single_pool_element",
+					"location": "v3/cross_hallway",
+					"projection": "rigid",
+					"processors": "v3:empty"
+				},
+				"weight": 10
+			},
+			{
+				"element": {
+					"element_type": "minecraft:single_pool_element",
+					"location": "v3/stair_hallway",
+					"projection": "rigid",
+					"processors": "v3:empty"
+				},
+				"weight": 5
+			},
+			{
+				"element": {
+					"element_type": "minecraft:single_pool_element",
+					"location": "v3/straight_hallway",
+					"projection": "rigid",
+					"processors": "v3:empty"
+				},
+				"weight": 10
+			},
+			{
+				"element": {
+					"element_type": "minecraft:single_pool_element",
+					"location": "v3/straight_hallway_2",
+					"projection": "rigid",
+					"processors": "v3:empty"
+				},
+				"weight": 10
+			},
+			{
+				"element": {
+					"element_type": "minecraft:single_pool_element",
+					"location": "v3/straight_hallway_3",
+					"projection": "rigid",
+					"processors": "v3:empty"
+				},
+				"weight": 5
+			},
+			{
+				"element": {
+					"element_type": "minecraft:single_pool_element",
+					"location": "v3/courtyard",
+					"projection": "rigid",
+					"processors": "v3:empty"
+				},
+				"weight": 15
+			},
+			{
+				"element": {
+					"element_type": "minecraft:single_pool_element",
+					"location": "v3/w_manor",
+					"projection": "rigid",
+					"processors": "v3:empty"
+				},
+				"weight": 15
+			}
+		]
+	}
+}
