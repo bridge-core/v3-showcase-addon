@@ -14,7 +14,7 @@
 		"renderDragonFeatures": false,
 		"educationEdition": false
 	},
-	"namespace": "bridge",
+	"namespace": "v3",
 	"packs": {
 		"behaviorPack": "./BP",
 		"resourcePack": "./RP"

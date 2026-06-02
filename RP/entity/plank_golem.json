@@ -1,0 +1,39 @@
+{
+	"format_version": "1.10.0",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "v3:plank_golem",
+			"materials": {
+				"default": "entity_alphatest"
+			},
+			"textures": {
+				"default": "textures/entity/plank_golem"
+			},
+			"geometry": {
+				"default": "geometry.plank_golem"
+			},
+			"animations": {
+				"walk": "animation.plank_golem.walk",
+				"shoot": "animation.plank_golem.shoot",
+				"look_at_target": "animation.plank_golem.look_at_target"
+			},
+			"scripts": {
+				"initialize": [
+					"variable.show_arrows = false;"
+				],
+				"pre_animation": [
+					"variable.show_arrows = q.property('v3:has_arrows');"
+				],
+				"animate": [
+					{
+						"walk": "math.min(1.0, q.modified_move_speed * 10)"
+					},
+					"look_at_target"
+				]
+			},
+			"render_controllers": [
+				"controller.render.plank_golem"
+			]
+		}
+	}
+}

@@ -1,0 +1,91 @@
+{
+	"format_version": "1.26.20",
+	"minecraft:entity": {
+		"description": {
+			"identifier": "v3:plank_golem",
+			"is_summonable": true,
+			"is_spawnable": true,
+			"properties": {
+				"v3:has_arrows": {
+					"type": "bool",
+					"default": false,
+					"client_sync": true
+				}
+			}
+		},
+		"component_groups": {},
+		"components": {
+			"minecraft:health": {
+				"value": 20,
+				"max": 20
+			},
+			"minecraft:movement": {
+				"value": 0.2
+			},
+			"minecraft:collision_box": {
+				"width": 0.75,
+				"height": 1.125
+			},
+			"minecraft:type_family": {
+				"family": [
+					"plank_golem",
+					"mob"
+				]
+			},
+			"minecraft:behavior.float": {
+				"priority": 0
+			},
+			"minecraft:behavior.random_stroll": {
+				"priority": 1
+			},
+			"minecraft:behavior.look_at_player": {
+				"priority": 2,
+				"look_distance": 6,
+				"probability": 0.02
+			},
+			"minecraft:behavior.random_look_around": {
+				"priority": 3
+			},
+			"minecraft:interact": {
+				"interactions": [
+					{
+						"on_interact": {
+							"filters": {
+								"test": "has_equipment",
+								"subject": "other",
+								"domain": "hand",
+								"value": "minecraft:arrow"
+							},
+							"event": "v3:on_give_arrow"
+						},
+						"swing": true
+					}
+				]
+			},
+			"minecraft:hurt_on_condition": {
+				"damage_conditions": [
+					{
+						"filters": {
+							"test": "in_lava"
+						},
+						"cause": "lava",
+						"damage_per_tick": 4
+					}
+				]
+			},
+			"minecraft:movement.basic": {},
+			"minecraft:navigation.generic": {
+				"can_path_over_water": true
+			},
+			"minecraft:jump.static": {},
+			"minecraft:physics": {},
+			"minecraft:pushable_by_entity": {},
+			"minecraft:pushable_by_block": {}
+		},
+		"events": {
+			"v3:on_give_arrow": {
+
+			}
+		}
+	}
+}
