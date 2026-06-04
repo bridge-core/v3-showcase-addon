@@ -1,4 +1,61 @@
 {
-	"format_version": "1.14.0",
-	"sound_definitions": {}
+	"format_version": "1.20.20",
+	"sound_definitions": {
+		"mob.plank_golem.idle": {
+			"category": "neutral",
+			"sounds": [
+				"sounds/mob/plank_golem/idle1",
+				"sounds/mob/plank_golem/idle2",
+				"sounds/mob/plank_golem/idle3",
+				"sounds/mob/plank_golem/idle4"
+			]
+		},
+		"mob.plank_golem.step": {
+			"category": "neutral",
+			"sounds": [
+				"sounds/mob/plank_golem/step1",
+				"sounds/mob/plank_golem/step2",
+				"sounds/mob/plank_golem/step3",
+				"sounds/mob/plank_golem/step4"
+			]
+		},
+		"mob.plank_golem.insert": {
+			"category": "neutral",
+			"sounds": [
+				"sounds/mob/plank_golem/insert1",
+				"sounds/mob/plank_golem/insert2",
+				"sounds/mob/plank_golem/insert3"
+			]
+		},
+		"mob.plank_golem.shoot": {
+			"category": "neutral",
+			"sounds": [
+				"sounds/mob/plank_golem/shoot1",
+				"sounds/mob/plank_golem/shoot2",
+				"sounds/mob/plank_golem/shoot3"
+			]
+		},
+		"mob.plank_golem.rattle": {
+			"category": "neutral",
+			"sounds": [
+				"sounds/mob/plank_golem/rattle1",
+				"sounds/mob/plank_golem/rattle2",
+				"sounds/mob/plank_golem/rattle3"
+			]
+		},
+		"mob.plank_golem.hurt": {
+			"category": "neutral",
+			"sounds": [
+				"sounds/mob/plank_golem/hurt1",
+				"sounds/mob/plank_golem/hurt2",
+				"sounds/mob/plank_golem/hurt3"
+			]
+		},
+		"mob.plank_golem.death": {
+			"category": "neutral",
+			"sounds": [
+				"sounds/mob/plank_golem/death"
+			]
+		}
+	}
 }

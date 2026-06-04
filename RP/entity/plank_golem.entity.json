@@ -15,25 +15,37 @@
 			"animations": {
 				"walk": "animation.plank_golem.walk",
 				"shoot": "animation.plank_golem.shoot",
-				"look_at_target": "animation.plank_golem.look_at_target"
+				"look_at_target": "animation.plank_golem.look_at_target",
+				"shoot_controller": "controller.animation.plank_golem.shoot"
 			},
 			"scripts": {
 				"initialize": [
-					"variable.show_arrows = false;"
+					"v.show_arrows = false;"
 				],
 				"pre_animation": [
-					"variable.show_arrows = q.property('v3:has_arrows');"
+					"v.show_arrows = q.property('v3:has_arrows');"
 				],
 				"animate": [
 					{
 						"walk": "math.min(1.0, q.modified_move_speed * 10)"
 					},
-					"look_at_target"
-				]
+					"look_at_target",
+					"shoot_controller"
+				],
+				"should_update_bones_and_effects_offscreen": true
 			},
 			"render_controllers": [
 				"controller.render.plank_golem"
-			]
+			],
+			"sound_effects": {
+				"shoot": "mob.plank_golem.shoot"
+			},
+			"particle_effects": {
+				"dust": "v3:wide_dust_plume"
+			},
+			"spawn_egg": {
+				"texture": "plank_golem_spawn_egg"
+			}
 		}
 	}
 }

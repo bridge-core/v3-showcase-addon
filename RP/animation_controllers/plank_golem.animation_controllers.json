@@ -1,0 +1,32 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.plank_golem.shoot": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"shoot": "query.facing_target_to_range_attack"
+						}
+					]
+				},
+				"shoot": {
+					"animations": [
+						"shoot"
+					],
+					"transitions": [
+						{
+							"default": "!query.facing_target_to_range_attack || q.all_animations_finished"
+						}
+					],
+					"sound_effects": [
+						{
+							"effect": "shoot"
+						}
+					]
+				}
+			}
+		}
+	}
+}

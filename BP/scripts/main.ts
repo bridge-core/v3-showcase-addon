@@ -1,5 +1,6 @@
 import { world, system, CommandPermissionLevel, CustomCommandStatus } from '@minecraft/server'
 import { RoundManager } from './rounds'
+import './entity/plankGolem'
 
 // RoundManager.registerSpawnPoint({ x: 0, y: 0, z: 0 })
 

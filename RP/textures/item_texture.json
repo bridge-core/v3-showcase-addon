@@ -1,5 +1,9 @@
 {
 	"resource_pack_name": "V3 Showcase Add-On",
 	"texture_name": "atlas.items",
-	"texture_data": {}
+	"texture_data": {
+		"plank_golem_spawn_egg": {
+			"textures": "textures/items/spawn_eggs/spawn_egg_plank_golem"
+		}
+	}
 }

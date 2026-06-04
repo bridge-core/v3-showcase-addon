@@ -6,7 +6,7 @@
 	],
 	"targetVersion": "1.26.20",
 	"experimentalGameplay": {
-		"upcomingCreatorFeatures": false,
+		"upcomingCreatorFeatures": true,
 		"experimentalCustomProjectileFeatures": false,
 		"experimentalCreatorCameraFeatures": false,
 		"experimentalVoxelShapeFeatures": false,

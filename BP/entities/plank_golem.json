@@ -13,7 +13,6 @@
 				}
 			}
 		},
-		"component_groups": {},
 		"components": {
 			"minecraft:health": {
 				"value": 20,
@@ -21,6 +20,9 @@
 			},
 			"minecraft:movement": {
 				"value": 0.2
+			},
+			"minecraft:movement_sound_distance_offset": {
+				"value": 0.4
 			},
 			"minecraft:collision_box": {
 				"width": 0.75,
@@ -35,16 +37,73 @@
 			"minecraft:behavior.float": {
 				"priority": 0
 			},
+			"minecraft:behavior.fire_at_target": {
+				"priority": 1,
+				"filters": {
+					"test": "bool_property",
+					"domain": "v3:has_arrows"
+				},
+				"projectile_def": "minecraft:arrow",
+				"owner_anchor": 2,
+				"owner_offset": [ 0.0, 0.3, 0.5 ],
+				"target_anchor": 0,
+				"target_offset": [ 0.0, 0.5, 0.0 ],
+				"attack_range": [0, 16],
+				"attack_cooldown": 1.0,
+				"pre_shoot_delay": 0.15,
+				"post_shoot_delay": 0.3, 
+				"ranged_fov": 90
+			},
+			"minecraft:behavior.nearest_attackable_target": {
+				"priority": 2,
+				"must_see": true,
+				"entity_types": [
+					{
+						"filters": {
+							"all_of": [
+								{
+									"test": "is_family",
+									"subject": "other",
+									"value": "monster"
+								},
+								{
+									"test": "is_family",
+									"subject": "other",
+									"operator": "not",
+									"value": "creeper"
+								},
+								{
+									"test": "bool_property",
+									"domain": "v3:has_arrows"
+								}
+							]
+						},
+						"max_dist": 16,
+						"reevaluate_description": true
+					}
+				]
+			},
+			"minecraft:behavior.follow_mob": {
+				"priority": 3,
+				"filters": {
+					"test": "has_target",
+					"value": false
+				},
+				"search_range": 16,
+				"stop_distance": 4,
+				"speed_multiplier": 1.5,
+				"preferred_actor_type": "minecraft:player"
+			},
 			"minecraft:behavior.random_stroll": {
-				"priority": 1
+				"priority": 4
 			},
 			"minecraft:behavior.look_at_player": {
-				"priority": 2,
+				"priority": 5,
 				"look_distance": 6,
 				"probability": 0.02
 			},
 			"minecraft:behavior.random_look_around": {
-				"priority": 3
+				"priority": 6
 			},
 			"minecraft:interact": {
 				"interactions": [
@@ -55,12 +114,38 @@
 								"subject": "other",
 								"domain": "hand",
 								"value": "minecraft:arrow"
-							},
-							"event": "v3:on_give_arrow"
+							}
+						},
+						"swing": true
+					},
+					{
+						"on_interact": {
+							"filters": {
+								"all_of": [
+									{
+										"test": "has_equipment",
+										"subject": "other",
+										"domain": "hand",
+										"operator": "!=",
+										"value": "minecraft:arrow"
+									},
+									{
+										"test": "bool_property",
+										"subject": "other",
+										"domain": "v3:has_arrows"
+									}
+								]
+							}
 						},
 						"swing": true
 					}
 				]
+			},
+			"minecraft:inventory": {
+				"container_type": "inventory",
+				"restrict_to_owner": true,
+				"can_be_siphoned_from": false,
+				"inventory_size": 1
 			},
 			"minecraft:hurt_on_condition": {
 				"damage_conditions": [
@@ -82,8 +167,6 @@
 			"minecraft:pushable_by_entity": {},
 			"minecraft:pushable_by_block": {}
 		},
-		"events": {
-			"v3:on_give_arrow": {}
-		}
+		"events": {}
 	}
 }
