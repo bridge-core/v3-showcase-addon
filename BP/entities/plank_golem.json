@@ -13,6 +13,97 @@
 				}
 			}
 		},
+		"component_groups": {
+			"v3:attack_ai": {
+				"minecraft:behavior.avoid_mob_type": {
+					"priority": 2,
+					"entity_types": [
+						{
+							"filters": {
+								"all_of": [
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "monster"
+									},
+									{
+										"test": "is_family",
+										"subject": "other",
+										"operator": "not",
+										"value": "creeper"
+									}
+								]
+							},
+							"max_dist": 2,
+							"walk_speed_multiplier": 1.75,
+							"sprint_speed_multiplier": 1.75
+						}
+					],
+					"max_flee": 5
+				},
+				"minecraft:behavior.fire_at_target": {
+					"priority": 3,
+					"filters": {
+						"test": "bool_property",
+						"domain": "v3:has_arrows"
+					},
+					"projectile_def": "minecraft:arrow",
+					"owner_anchor": 2,
+					"owner_offset": [
+						0.0,
+						0.3,
+						0.5
+					],
+					"target_anchor": 0,
+					"target_offset": [
+						0.0,
+						0.5,
+						0.0
+					],
+					"attack_range": [
+						0,
+						16
+					],
+					"attack_cooldown": 1.0,
+					"pre_shoot_delay": 0.15,
+					"post_shoot_delay": 0.3,
+					"ranged_fov": 90
+				}
+			},
+			"v3:idle_ai": {
+				"minecraft:behavior.follow_mob": {
+					"priority": 2,
+					"filters": {
+						"all_of": [
+							{
+								"test": "is_family",
+								"subject": "other",
+								"value": "player"
+							},
+							{
+								"test": "has_target",
+								"value": false
+							}
+						]
+					},
+					"search_range": 16,
+					"stop_distance": 5,
+					"speed_multiplier": 1.5,
+					"preferred_actor_type": "minecraft:player"
+				},
+				"minecraft:behavior.random_stroll": {
+					"priority": 3
+				},
+				"minecraft:behavior.look_at_player": {
+					"priority": 4,
+					"look_distance": 6,
+					"probability": 0.02
+				},
+				"minecraft:behavior.random_look_around": {
+					"priority": 5
+				}
+			}
+		},
 		"components": {
 			"minecraft:health": {
 				"value": 20,
@@ -24,6 +115,9 @@
 			"minecraft:movement_sound_distance_offset": {
 				"value": 0.4
 			},
+			"minecraft:follow_range": {
+				"value": 64
+			},
 			"minecraft:collision_box": {
 				"width": 0.75,
 				"height": 1.125
@@ -34,29 +128,28 @@
 					"mob"
 				]
 			},
+			"minecraft:ambient_sound_interval": {
+				"value": 5.0,
+				"range": 5.0,
+				"event_name": "ambient",
+				"event_names": [
+					{
+						"condition": "!q.has_target",
+						"event_name": "ambient"
+					},
+					{
+						"condition": "q.has_target",
+						"event_name": "ambient.disabled"
+					}
+				]
+			},
 			"minecraft:behavior.float": {
 				"priority": 0
 			},
-			"minecraft:behavior.fire_at_target": {
-				"priority": 1,
-				"filters": {
-					"test": "bool_property",
-					"domain": "v3:has_arrows"
-				},
-				"projectile_def": "minecraft:arrow",
-				"owner_anchor": 2,
-				"owner_offset": [ 0.0, 0.3, 0.5 ],
-				"target_anchor": 0,
-				"target_offset": [ 0.0, 0.5, 0.0 ],
-				"attack_range": [0, 16],
-				"attack_cooldown": 1.0,
-				"pre_shoot_delay": 0.15,
-				"post_shoot_delay": 0.3, 
-				"ranged_fov": 90
-			},
 			"minecraft:behavior.nearest_attackable_target": {
-				"priority": 2,
+				"priority": 1,
 				"must_see": true,
+				"must_reach": true,
 				"entity_types": [
 					{
 						"filters": {
@@ -83,27 +176,39 @@
 					}
 				]
 			},
-			"minecraft:behavior.follow_mob": {
-				"priority": 3,
-				"filters": {
-					"test": "has_target",
-					"value": false
-				},
-				"search_range": 16,
-				"stop_distance": 4,
-				"speed_multiplier": 1.5,
-				"preferred_actor_type": "minecraft:player"
-			},
-			"minecraft:behavior.random_stroll": {
-				"priority": 4
-			},
-			"minecraft:behavior.look_at_player": {
-				"priority": 5,
-				"look_distance": 6,
-				"probability": 0.02
-			},
-			"minecraft:behavior.random_look_around": {
-				"priority": 6
+			"minecraft:environment_sensor": {
+				"triggers": [
+					{
+						"filters": {
+							"all_of": [
+								{
+									"test": "has_target"
+								},
+								{
+									"test": "has_component",
+									"operator": "not",
+									"value": "minecraft:behavior.fire_at_target"
+								}
+							]
+						},
+						"event": "v3:switch_to_attack_ai"
+					},
+					{
+						"filters": {
+							"all_of": [
+								{
+									"test": "has_target",
+									"value": false
+								},
+								{
+									"test": "has_component",
+									"value": "minecraft:behavior.fire_at_target"
+								}
+							]
+						},
+						"event": "v3:switch_to_idle_ai"
+					}
+				]
 			},
 			"minecraft:interact": {
 				"interactions": [
@@ -158,15 +263,59 @@
 					}
 				]
 			},
-			"minecraft:movement.basic": {},
-			"minecraft:navigation.generic": {
-				"can_path_over_water": true
+			"minecraft:loot": {
+				"table": "loot_tables/entities/plank_golem.json"
 			},
+			"minecraft:leashable": {},
+			"minecraft:leashable_to": {},
+			"minecraft:nameable": {},
+			"minecraft:is_hidden_when_invisible": {},
+			"minecraft:navigation.walk": {
+				"can_path_over_water": true,
+				"avoid_damage_blocks": true,
+				"avoid_water": true,
+				"can_walk": true
+			},
+			"minecraft:movement.basic": {},
 			"minecraft:jump.static": {},
 			"minecraft:physics": {},
 			"minecraft:pushable_by_entity": {},
 			"minecraft:pushable_by_block": {}
 		},
-		"events": {}
+		"events": {
+			"minecraft:entity_spawned": {
+				"add": {
+					"component_groups": [
+						"v3:idle_ai"
+					]
+				}
+			},
+			"v3:switch_to_attack_ai": {
+				"add": {
+					"component_groups": [
+						"v3:attack_ai"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"v3:idle_ai"
+					]
+				},
+				"stop_movement": {}
+			},
+			"v3:switch_to_idle_ai": {
+				"add": {
+					"component_groups": [
+						"v3:idle_ai"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"v3:attack_ai"
+					]
+				},
+				"stop_movement": {}
+			}
+		}
 	}
 }

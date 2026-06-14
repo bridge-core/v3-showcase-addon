@@ -4,7 +4,8 @@ import {
     EquipmentSlot, 
     Entity, 
     Player,
-    ItemStack
+    ItemStack,
+GameMode
 } from "@minecraft/server";
 
 const ENTITY_ID = 'v3:plank_golem'
@@ -14,10 +15,16 @@ export class PlankGolem {
     public static giveArrow(player: Player, target: Entity, givenStack: ItemStack): void {
         const dimension = target.dimension
         const playerEquippableComp = player.getComponent('minecraft:equippable')
+        const overridesMainhandStack = player.matches({
+            excludeGameModes: [GameMode.Creative, GameMode.Spectator]
+        })
 
         const remainderStack = target.addItem(givenStack)
-        playerEquippableComp.setEquipment(EquipmentSlot.Mainhand, remainderStack)
 
+        if (overridesMainhandStack) {
+            playerEquippableComp.setEquipment(EquipmentSlot.Mainhand, remainderStack)
+        }
+        
         dimension.playSound('mob.plank_golem.insert', target.location)
     }
 
