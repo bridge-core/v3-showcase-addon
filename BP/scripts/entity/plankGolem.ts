@@ -1,11 +1,11 @@
-import { 
-    system, 
-    world, 
-    EquipmentSlot, 
-    Entity, 
+import {
+    system,
+    world,
+    EquipmentSlot,
+    Entity,
     Player,
     ItemStack,
-GameMode
+    GameMode
 } from "@minecraft/server";
 
 const ENTITY_ID = 'v3:plank_golem'
@@ -24,14 +24,14 @@ export class PlankGolem {
         if (overridesMainhandStack) {
             playerEquippableComp.setEquipment(EquipmentSlot.Mainhand, remainderStack)
         }
-        
+
         dimension.playSound('mob.plank_golem.insert', target.location)
     }
 
     public static takeArrow(entity: Entity): void {
         const inventoryComp = entity.getComponent('minecraft:inventory')
         const container = inventoryComp.container
-        
+
         const firstStack = container.getItem(0)
         if (!firstStack) return
 
@@ -83,7 +83,7 @@ world.afterEvents.entitySpawn.subscribe(event => {
     }
     if (entity.typeId === 'minecraft:arrow') {
         const projectileComp = entity.getComponent('minecraft:projectile')
-    
+
         const owner = projectileComp.owner
         if (!owner || owner.typeId !== ENTITY_ID) return
 

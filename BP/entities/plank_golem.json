@@ -70,7 +70,7 @@
 					"ranged_fov": 90
 				}
 			},
-			"v3:idle_ai": {
+			"v3:follow_ai": {
 				"minecraft:behavior.follow_mob": {
 					"priority": 2,
 					"filters": {
@@ -81,8 +81,9 @@
 								"value": "player"
 							},
 							{
-								"test": "has_target",
-								"value": false
+								"test": "distance_to_nearest_player",
+								"operator": ">",
+								"value": 5
 							}
 						]
 					},
@@ -90,17 +91,19 @@
 					"stop_distance": 5,
 					"speed_multiplier": 1.5,
 					"preferred_actor_type": "minecraft:player"
-				},
+				}
+			},
+			"v3:idle_ai": {
 				"minecraft:behavior.random_stroll": {
-					"priority": 3
+					"priority": 2
 				},
 				"minecraft:behavior.look_at_player": {
-					"priority": 4,
+					"priority": 3,
 					"look_distance": 6,
 					"probability": 0.02
 				},
 				"minecraft:behavior.random_look_around": {
-					"priority": 5
+					"priority": 4
 				}
 			}
 		},
@@ -201,8 +204,35 @@
 									"value": false
 								},
 								{
+									"test": "distance_to_nearest_player",
+									"operator": "<=",
+									"value": 16
+								},
+								{
 									"test": "has_component",
-									"value": "minecraft:behavior.fire_at_target"
+									"operator": "not",
+									"value": "minecraft:behavior.follow_mob"
+								}
+							]
+						},
+						"event": "v3:switch_to_follow_ai"
+					},
+					{
+						"filters": {
+							"all_of": [
+								{
+									"test": "has_target",
+									"value": false
+								},
+								{
+									"test": "distance_to_nearest_player",
+									"operator": ">",
+									"value": 16
+								},
+								{
+									"test": "has_component",
+									"operator": "not",
+									"value": "minecraft:behavior.random_stroll"
 								}
 							]
 						},
@@ -290,19 +320,6 @@
 					]
 				}
 			},
-			"v3:switch_to_attack_ai": {
-				"add": {
-					"component_groups": [
-						"v3:attack_ai"
-					]
-				},
-				"remove": {
-					"component_groups": [
-						"v3:idle_ai"
-					]
-				},
-				"stop_movement": {}
-			},
 			"v3:switch_to_idle_ai": {
 				"add": {
 					"component_groups": [
@@ -311,7 +328,36 @@
 				},
 				"remove": {
 					"component_groups": [
+						"v3:follow_ai",
 						"v3:attack_ai"
+					]
+				},
+				"stop_movement": {}
+			},
+			"v3:switch_to_follow_ai": {
+				"add": {
+					"component_groups": [
+						"v3:follow_ai"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"v3:idle_ai",
+						"v3:attack_ai"
+					]
+				},
+				"stop_movement": {}
+			},
+			"v3:switch_to_attack_ai": {
+				"add": {
+					"component_groups": [
+						"v3:attack_ai"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"v3:idle_ai",
+						"v3:follow_ai"
 					]
 				},
 				"stop_movement": {}
