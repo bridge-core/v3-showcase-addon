@@ -4,8 +4,8 @@
 	"resource_pack_name": "V3 Showcase Add-On",
 	"texture_name": "atlas.terrain",
 	"texture_data": {
-		"bridge_enemy_spawn_point": {
-			"textures": "textures/blocks/enemy_spawn_point"
+		"monster_spawn_point": {
+			"textures": "textures/blocks/monster_spawn_point"
 		}
 	}
 }

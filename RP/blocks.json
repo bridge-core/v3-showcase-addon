@@ -3,9 +3,5 @@
 		1,
 		1,
 		0
-	],
-	"bridge:enemy_spawn_point": {
-		"sound": "stone",
-		"textures": "bridge_enemy_spawn_point"
-	}
+	]
 }
