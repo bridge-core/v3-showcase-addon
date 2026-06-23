@@ -1,4 +1,4 @@
-import { world, system, CommandPermissionLevel, CustomCommandStatus } from '@minecraft/server'
+import { world, system, CommandPermissionLevel, CustomCommandStatus, Player } from '@minecraft/server'
 import { RoundManager } from './rounds'
 import './entity/plankGolem'
 

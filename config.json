@@ -4,7 +4,7 @@
 	"authors": [
 		""
 	],
-	"targetVersion": "1.26.20",
+	"targetVersion": "1.26.30",
 	"experimentalGameplay": {
 		"upcomingCreatorFeatures": true,
 		"experimentalCustomProjectileFeatures": false,
