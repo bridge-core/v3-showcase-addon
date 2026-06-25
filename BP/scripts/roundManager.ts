@@ -67,7 +67,7 @@ export class RoundManager {
             const spawnPoint = spawnPointQueue[index]
             spawnPointQueue.splice(index, 1)
 
-            const entity = this.dimension.spawnEntity('minecraft:zombie', spawnPoint)
+            const entity = this.dimension.spawnEntity('minecraft:zombie', { x: spawnPoint.x + 0.5, y: spawnPoint.y + 1, z: spawnPoint.z + 0.5 })
             this.trackedEntities.push(entity.id)
         }
     }
