@@ -2,10 +2,10 @@
 	"format_version": "1.21.20",
 	"minecraft:jigsaw": {
 		"description": {
-			"identifier": "v3:test"
+			"identifier": "survival:start"
 		},
-		"start_pool": "v3:rooms_and_hallways",
-		"max_depth": 10,
+		"start_pool": "survival:start",
+		"max_depth": 2,
 		"max_distance_from_center": 128,
 		"step": "surface_structures",
 		"start_height": {

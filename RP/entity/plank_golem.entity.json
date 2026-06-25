@@ -2,7 +2,7 @@
 	"format_version": "1.10.0",
 	"minecraft:client_entity": {
 		"description": {
-			"identifier": "v3:plank_golem",
+			"identifier": "survival:plank_golem",
 			"materials": {
 				"default": "entity_alphatest"
 			},
@@ -23,7 +23,7 @@
 					"v.show_arrows = false;"
 				],
 				"pre_animation": [
-					"v.show_arrows = q.property('v3:has_arrows');"
+					"v.show_arrows = q.property('survival:has_arrows');"
 				],
 				"animate": [
 					{
@@ -41,7 +41,7 @@
 				"shoot": "mob.plank_golem.shoot"
 			},
 			"particle_effects": {
-				"dust": "v3:wide_dust_plume"
+				"dust": "survival:wide_dust_plume"
 			},
 			"spawn_egg": {
 				"texture": "plank_golem_spawn_egg"

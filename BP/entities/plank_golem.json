@@ -2,11 +2,11 @@
 	"format_version": "1.26.20",
 	"minecraft:entity": {
 		"description": {
-			"identifier": "v3:plank_golem",
+			"identifier": "survival:plank_golem",
 			"is_summonable": true,
 			"is_spawnable": true,
 			"properties": {
-				"v3:has_arrows": {
+				"survival:has_arrows": {
 					"type": "bool",
 					"default": false,
 					"client_sync": true
@@ -14,7 +14,7 @@
 			}
 		},
 		"component_groups": {
-			"v3:attack_ai": {
+			"survival:attack_ai": {
 				"minecraft:behavior.avoid_mob_type": {
 					"priority": 2,
 					"entity_types": [
@@ -45,7 +45,7 @@
 					"priority": 3,
 					"filters": {
 						"test": "bool_property",
-						"domain": "v3:has_arrows"
+						"domain": "survival:has_arrows"
 					},
 					"projectile_def": "minecraft:arrow",
 					"owner_anchor": 2,
@@ -70,7 +70,7 @@
 					"ranged_fov": 90
 				}
 			},
-			"v3:follow_ai": {
+			"survival:follow_ai": {
 				"minecraft:behavior.follow_mob": {
 					"priority": 2,
 					"filters": {
@@ -93,7 +93,7 @@
 					"preferred_actor_type": "minecraft:player"
 				}
 			},
-			"v3:idle_ai": {
+			"survival:idle_ai": {
 				"minecraft:behavior.random_stroll": {
 					"priority": 2
 				},
@@ -170,7 +170,7 @@
 								},
 								{
 									"test": "bool_property",
-									"domain": "v3:has_arrows"
+									"domain": "survival:has_arrows"
 								}
 							]
 						},
@@ -194,7 +194,7 @@
 								}
 							]
 						},
-						"event": "v3:switch_to_attack_ai"
+						"event": "survival:switch_to_attack_ai"
 					},
 					{
 						"filters": {
@@ -215,7 +215,7 @@
 								}
 							]
 						},
-						"event": "v3:switch_to_follow_ai"
+						"event": "survival:switch_to_follow_ai"
 					},
 					{
 						"filters": {
@@ -236,7 +236,7 @@
 								}
 							]
 						},
-						"event": "v3:switch_to_idle_ai"
+						"event": "survival:switch_to_idle_ai"
 					}
 				]
 			},
@@ -267,7 +267,7 @@
 									{
 										"test": "bool_property",
 										"subject": "other",
-										"domain": "v3:has_arrows"
+										"domain": "survival:has_arrows"
 									}
 								]
 							}
@@ -316,48 +316,48 @@
 			"minecraft:entity_spawned": {
 				"add": {
 					"component_groups": [
-						"v3:idle_ai"
+						"survival:idle_ai"
 					]
 				}
 			},
-			"v3:switch_to_idle_ai": {
+			"survival:switch_to_idle_ai": {
 				"add": {
 					"component_groups": [
-						"v3:idle_ai"
+						"survival:idle_ai"
 					]
 				},
 				"remove": {
 					"component_groups": [
-						"v3:follow_ai",
-						"v3:attack_ai"
+						"survival:follow_ai",
+						"survival:attack_ai"
 					]
 				},
 				"stop_movement": {}
 			},
-			"v3:switch_to_follow_ai": {
+			"survival:switch_to_follow_ai": {
 				"add": {
 					"component_groups": [
-						"v3:follow_ai"
+						"survival:follow_ai"
 					]
 				},
 				"remove": {
 					"component_groups": [
-						"v3:idle_ai",
-						"v3:attack_ai"
+						"survival:idle_ai",
+						"survival:attack_ai"
 					]
 				},
 				"stop_movement": {}
 			},
-			"v3:switch_to_attack_ai": {
+			"survival:switch_to_attack_ai": {
 				"add": {
 					"component_groups": [
-						"v3:attack_ai"
+						"survival:attack_ai"
 					]
 				},
 				"remove": {
 					"component_groups": [
-						"v3:idle_ai",
-						"v3:follow_ai"
+						"survival:idle_ai",
+						"survival:follow_ai"
 					]
 				},
 				"stop_movement": {}

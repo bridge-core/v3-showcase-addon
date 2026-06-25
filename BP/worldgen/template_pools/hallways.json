@@ -2,60 +2,60 @@
 	"format_version": "1.21.20",
 	"minecraft:template_pool": {
 		"description": {
-			"identifier": "v3:hallways"
+			"identifier": "survival:hallways"
 		},
 		"elements": [
 			{
 				"element": {
 					"element_type": "minecraft:single_pool_element",
-					"location": "v3/corner_hallway",
+					"location": "survival/corner_hallway",
 					"projection": "rigid",
-					"processors": "v3:empty"
+					"processors": "survival:empty"
 				},
 				"weight": 25
 			},
 			{
 				"element": {
 					"element_type": "minecraft:single_pool_element",
-					"location": "v3/cross_hallway",
+					"location": "survival/cross_hallway",
 					"projection": "rigid",
-					"processors": "v3:empty"
+					"processors": "survival:empty"
 				},
 				"weight": 25
 			},
 			{
 				"element": {
 					"element_type": "minecraft:single_pool_element",
-					"location": "v3/stair_hallway",
+					"location": "survival/stair_hallway",
 					"projection": "rigid",
-					"processors": "v3:empty"
+					"processors": "survival:empty"
 				},
 				"weight": 25
 			},
 			{
 				"element": {
 					"element_type": "minecraft:single_pool_element",
-					"location": "v3/straight_hallway",
+					"location": "survival/straight_hallway",
 					"projection": "rigid",
-					"processors": "v3:empty"
+					"processors": "survival:empty"
 				},
 				"weight": 25
 			},
 			{
 				"element": {
 					"element_type": "minecraft:single_pool_element",
-					"location": "v3/straight_hallway_2",
+					"location": "survival/straight_hallway_2",
 					"projection": "rigid",
-					"processors": "v3:empty"
+					"processors": "survival:empty"
 				},
 				"weight": 25
 			},
 			{
 				"element": {
 					"element_type": "minecraft:single_pool_element",
-					"location": "v3/straight_hallway_3",
+					"location": "survival/straight_hallway_3",
 					"projection": "rigid",
-					"processors": "v3:empty"
+					"processors": "survival:empty"
 				},
 				"weight": 25
 			}

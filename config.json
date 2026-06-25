@@ -14,7 +14,7 @@
 		"renderDragonFeatures": false,
 		"educationEdition": false
 	},
-	"namespace": "v3",
+	"namespace": "survival",
 	"packs": {
 		"behaviorPack": "./BP",
 		"resourcePack": "./RP"

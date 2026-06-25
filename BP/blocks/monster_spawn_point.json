@@ -2,13 +2,13 @@
 	"format_version": "1.26.20",
 	"minecraft:block": {
 		"description": {
-			"identifier": "v3:monster_spawn_point",
+			"identifier": "survival:monster_spawn_point",
 			"menu_category": {
 				"category": "construction"
 			}
 		},
 		"components": {
-			"v3:monster_spawn_point": {},
+			"survival:monster_spawn_point": {},
 			"minecraft:geometry": "minecraft:geometry.full_block",
 			"minecraft:material_instances": {
 				"*": {

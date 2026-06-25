@@ -2,80 +2,80 @@
 	"format_version": "1.26.20",
 	"minecraft:template_pool": {
 		"description": {
-			"identifier": "v3:rooms_and_hallways"
+			"identifier": "survival:rooms_and_hallways"
 		},
 		"elements": [
 			{
 				"element": {
 					"element_type": "minecraft:single_pool_element",
-					"location": "v3/corner_hallway",
+					"location": "survival/corner_hallway",
 					"projection": "rigid",
-					"processors": "v3:empty"
-				},
-				"weight": 10
-			},
-			{
-				"element": {
-					"element_type": "minecraft:single_pool_element",
-					"location": "v3/cross_hallway",
-					"projection": "rigid",
-					"processors": "v3:empty"
-				},
-				"weight": 10
-			},
-			{
-				"element": {
-					"element_type": "minecraft:single_pool_element",
-					"location": "v3/stair_hallway",
-					"projection": "rigid",
-					"processors": "v3:empty"
+					"processors": "survival:empty"
 				},
 				"weight": 5
 			},
 			{
 				"element": {
 					"element_type": "minecraft:single_pool_element",
-					"location": "v3/straight_hallway",
+					"location": "survival/cross_hallway",
 					"projection": "rigid",
-					"processors": "v3:empty"
-				},
-				"weight": 10
-			},
-			{
-				"element": {
-					"element_type": "minecraft:single_pool_element",
-					"location": "v3/straight_hallway_2",
-					"projection": "rigid",
-					"processors": "v3:empty"
-				},
-				"weight": 10
-			},
-			{
-				"element": {
-					"element_type": "minecraft:single_pool_element",
-					"location": "v3/straight_hallway_3",
-					"projection": "rigid",
-					"processors": "v3:empty"
+					"processors": "survival:empty"
 				},
 				"weight": 5
 			},
 			{
 				"element": {
 					"element_type": "minecraft:single_pool_element",
-					"location": "v3/courtyard",
+					"location": "survival/stair_hallway",
 					"projection": "rigid",
-					"processors": "v3:empty"
+					"processors": "survival:empty"
 				},
-				"weight": 15
+				"weight": 5
 			},
 			{
 				"element": {
 					"element_type": "minecraft:single_pool_element",
-					"location": "v3/w_manor",
+					"location": "survival/straight_hallway",
 					"projection": "rigid",
-					"processors": "v3:empty"
+					"processors": "survival:empty"
 				},
-				"weight": 15
+				"weight": 3
+			},
+			{
+				"element": {
+					"element_type": "minecraft:single_pool_element",
+					"location": "survival/straight_hallway_2",
+					"projection": "rigid",
+					"processors": "survival:empty"
+				},
+				"weight": 2
+			},
+			{
+				"element": {
+					"element_type": "minecraft:single_pool_element",
+					"location": "survival/straight_hallway_3",
+					"projection": "rigid",
+					"processors": "survival:empty"
+				},
+				"weight": 5
+			},
+			{
+				"element": {
+					"element_type": "minecraft:single_pool_element",
+					"location": "survival/courtyard",
+					"projection": "rigid",
+					"processors": "survival:empty"
+				},
+				"weight": 25
+			},
+			{
+				"element": {
+					"element_type": "minecraft:single_pool_element",
+					"location": "survival/w_manor",
+					"projection": "rigid",
+					"processors": "survival:empty"
+				},
+				"weight": 20
 			}
 		]
 	}

@@ -55,21 +55,21 @@ function executeStop(): CustomCommandResult {
 system.beforeEvents.startup.subscribe(event => {
     const registry = event.customCommandRegistry
 
-    registry.registerEnum('v3:round_options', [
+    registry.registerEnum('survival:round_options', [
         'start',
         'stop'
     ])
 
     registry.registerCommand(
         {
-            name: 'v3:round',
+            name: 'survival:round',
             description: 'Manages the round',
             permissionLevel: CommandPermissionLevel.Admin,
             cheatsRequired: true,
             mandatoryParameters: [
                 {
                     type: CustomCommandParamType.Enum,
-                    name: 'v3:round_options'
+                    name: 'survival:round_options'
                 }
             ]
         },

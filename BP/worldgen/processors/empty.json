@@ -2,7 +2,7 @@
 	"format_version": "1.21.20",
 	"minecraft:processor_list": {
 		"description": {
-			"identifier": "v3:empty"
+			"identifier": "survival:empty"
 		},
 		"processors": []
 	}
