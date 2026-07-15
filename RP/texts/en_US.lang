@@ -1,8 +1,7 @@
 pack.name=V3 Showcase Add-On
 pack.description=
 
-entity.v3:plank_golem.name=Plank Golem
+entity.survival:plank_golem.name=Plank Golem
+item.spawn_egg.entity.survival:plank_golem.name=Plank Golem Spawn Egg
 
-item.spawn_egg.entity.v3:plank_golem.name=Plank Golem Spawn Egg
-
-tile.bridge:monster_spawn_point.name=Monster Spawn Point
+tile.survival:monster_spawn_point.name=Monster Spawn Point
