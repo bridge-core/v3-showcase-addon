@@ -42,7 +42,13 @@ export class RoundManager {
     }
 
     public static clearSpawnPoint(location: Vector3) {
-        this.spawnPoints.delete(location)
+        for (const point of this.spawnPoints) {
+            if (point.x !== location.x) continue
+            if (point.y !== location.y) continue
+            if (point.z !== location.z) continue
+
+            this.spawnPoints.delete(point)
+        }
     }
 
     private static tick(): void {
