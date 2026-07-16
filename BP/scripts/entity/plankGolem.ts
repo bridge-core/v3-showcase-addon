@@ -8,6 +8,8 @@ import {
     GameMode
 } from "@minecraft/server";
 
+import { decrementItemAtSlot } from '../util/inventory'
+
 const ENTITY_ID = 'v3:plank_golem'
 
 export class PlankGolem {
@@ -32,17 +34,9 @@ export class PlankGolem {
         const inventoryComp = entity.getComponent('minecraft:inventory')
         const container = inventoryComp.container
 
-        const firstStack = container.getItem(0)
-        if (!firstStack) return
+        const slot = container.getSlot(0)
 
-        let newStack = undefined
-
-        if (firstStack.amount - 1 > 0) {
-            newStack = firstStack.clone()
-            newStack.amount--
-        }
-
-        container.setItem(0, newStack)
+        decrementItemAtSlot(slot)
     }
 
     public static tick(entity: Entity): void {
