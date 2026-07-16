@@ -6,7 +6,6 @@ const DEBUG: boolean = true
 export class RoundManager {
 	private static state: 'lobby' | 'loading' | 'game' = 'lobby'
 	private static dimension: Dimension | null = null
-	private static difficulty: number = 0
 	private static wave: number = 0
 	private static spawnPoints: Set<Vector3> = new Set()
 	private static trackedEntities: string[] = []
