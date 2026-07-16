@@ -1,8 +1,10 @@
 import { world, system, Vector3, Entity, Dimension } from '@minecraft/server'
+import { RoomManager } from './roomManager'
 
 const DEBUG: boolean = true
 
 export class RoundManager {
+    public static roomManager: RoomManager = new RoomManager()
     private static dimension: Dimension | null = null
     private static difficulty: number = 0
     private static wave: number = 0

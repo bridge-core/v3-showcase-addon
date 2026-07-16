@@ -1,5 +1,7 @@
 import './entity/plankGolem'
 import './roundManager'
+import './roomManager'
 import './command/round'
 import './component/monsterSpawnPoint'
 import './component/lock'
+import './component/structure_settings'

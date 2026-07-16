@@ -5,3 +5,6 @@ entity.survival:plank_golem.name=Plank Golem
 item.spawn_egg.entity.survival:plank_golem.name=Plank Golem Spawn Egg
 
 tile.survival:monster_spawn_point.name=Monster Spawn Point
+item.spawn_egg.entity.v3:plank_golem.name=Plank Golem Spawn Egg
+
+tile.survival:structure_settings.name=Structure Settings Block
