@@ -1,114 +1,122 @@
 import { world, system, Vector3, Entity, Dimension } from '@minecraft/server'
+import { RoomManager } from './roomManager'
 
 const DEBUG: boolean = true
 
 export class RoundManager {
-    private static state: 'lobby' | 'loading' | 'game' = 'lobby'
-    private static dimension: Dimension | null = null
-    private static difficulty: number = 0
-    private static wave: number = 0
-    private static spawnPoints: Set<Vector3> = new Set()
-    private static trackedEntities: string[] = []
-    private static tickerId: number = 0
+	private static state: 'lobby' | 'loading' | 'game' = 'lobby'
+	private static dimension: Dimension | null = null
+	private static difficulty: number = 0
+	private static wave: number = 0
+	private static spawnPoints: Set<Vector3> = new Set()
+	private static trackedEntities: string[] = []
+	private static tickerId: number = 0
 
-    public static load(dimension: Dimension) {
-        if (this.state !== 'lobby') {
-            world.sendMessage(`Attempted to load when in state ${this.state}!`)
+	public static roomManager: RoomManager = new RoomManager()
 
-            return
-        }
+	public static load(dimension: Dimension) {
+		if (this.state !== 'lobby') {
+			world.sendMessage(`Attempted to load when in state ${this.state}!`)
 
-        if (this.spawnPoints.size === 0) {
-            world.sendMessage(`Attempted to load with no spawn points added yet!`)
+			return
+		}
 
-            return
-        }
+		if (this.spawnPoints.size === 0) {
+			world.sendMessage(`Attempted to load with no spawn points added yet!`)
 
-        this.state = 'loading'
+			return
+		}
 
-        this.dimension = dimension
+		this.state = 'loading'
 
-        world.sendMessage(`Loading...`)
-    }
+		this.dimension = dimension
 
-    public static start() {
-        if (this.state !== 'loading') {
-            world.sendMessage(`Attempted to start when in state ${this.state}!`)
+		world.sendMessage(`Loading...`)
+	}
 
-            return
-        }
+	public static start() {
+		if (this.state !== 'loading') {
+			world.sendMessage(`Attempted to start when in state ${this.state}!`)
 
-        this.state = 'game'
+			return
+		}
 
-        this.trackedEntities = []
-        this.wave = 1
-        this.tickerId = system.runInterval(() => this.tick())
-        this.incrementWave()
+		this.state = 'game'
 
-        world.sendMessage(`Starting game...`)
-    }
+		this.trackedEntities = []
+		this.wave = 1
+		this.tickerId = system.runInterval(() => this.tick())
+		this.incrementWave()
 
-    public static stop() {
-        if (this.state !== 'game') {
-            world.sendMessage(`Attempted to stop when in state ${this.state}!`)
+		world.sendMessage(`Starting game...`)
+	}
 
-            return
-        }
+	public static stop() {
+		if (this.state !== 'game') {
+			world.sendMessage(`Attempted to stop when in state ${this.state}!`)
 
-        this.state = 'lobby'
+			return
+		}
 
-        system.clearRun(this.tickerId)
-    }
+		this.state = 'lobby'
 
-    public static registerSpawnPoint(location: Vector3) {
-        this.spawnPoints.add(location)
-    }
+		system.clearRun(this.tickerId)
+	}
 
-    public static clearSpawnPoint(location: Vector3) {
-        this.spawnPoints.delete(location)
-    }
+	public static registerSpawnPoint(location: Vector3) {
+		this.spawnPoints.add(location)
+	}
 
-    private static tick(): void {
-        if (DEBUG && system.currentTick % 10 === 0) {
-            for (const spawnPoint of this.spawnPoints) {
-                this.dimension.spawnParticle('minecraft:blue_flame_particle', spawnPoint)
-            }
-        }
-    }
+	public static clearSpawnPoint(location: Vector3) {
+		for (const point of this.spawnPoints) {
+			if (point.x !== location.x) continue
+			if (point.y !== location.y) continue
+			if (point.z !== location.z) continue
 
-    private static incrementWave(): void {
-        const waveDifficulty = world.getPlayers().length * this.wave
+			this.spawnPoints.delete(point)
+		}
+	}
 
-        let spawnPointQueue = [...this.spawnPoints]
+	private static tick(): void {
+		if (DEBUG && system.currentTick % 10 === 0) {
+			for (const spawnPoint of this.spawnPoints) {
+				this.dimension.spawnParticle('minecraft:blue_flame_particle', spawnPoint)
+			}
+		}
+	}
 
-        for (let i = 0; i < waveDifficulty; i++) {
-            if (spawnPointQueue.length === 0) {
-                spawnPointQueue = [...this.spawnPoints]
-            }
+	private static incrementWave(): void {
+		const waveDifficulty = world.getPlayers().length * this.wave
 
-            const index = Math.floor(Math.random() * spawnPointQueue.length)
-            const spawnPoint = spawnPointQueue[index]
-            spawnPointQueue.splice(index, 1)
+		let spawnPointQueue = [...this.spawnPoints]
 
-            const entity = this.dimension.spawnEntity('minecraft:zombie', { x: spawnPoint.x + 0.5, y: spawnPoint.y + 1, z: spawnPoint.z + 0.5 })
-            this.trackedEntities.push(entity.id)
-        }
-    }
+		for (let i = 0; i < waveDifficulty; i++) {
+			if (spawnPointQueue.length === 0) {
+				spawnPointQueue = [...this.spawnPoints]
+			}
 
-    public static onEntityDie(entity: Entity) {
-        if (!this.trackedEntities.includes(entity.id)) return
+			const index = Math.floor(Math.random() * spawnPointQueue.length)
+			const spawnPoint = spawnPointQueue[index]
+			spawnPointQueue.splice(index, 1)
 
-        this.trackedEntities.splice(this.trackedEntities.indexOf(entity.id), 1)
+			const entity = this.dimension.spawnEntity('minecraft:zombie', { x: spawnPoint.x + 0.5, y: spawnPoint.y + 1, z: spawnPoint.z + 0.5 })
+			this.trackedEntities.push(entity.id)
+		}
+	}
 
-        if (this.trackedEntities.length > 0) return
+	public static onEntityDie(entity: Entity) {
+		if (!this.trackedEntities.includes(entity.id)) return
 
-        world.sendMessage('Round complete!')
+		this.trackedEntities.splice(this.trackedEntities.indexOf(entity.id), 1)
 
-        this.incrementWave()
-    }
+		if (this.trackedEntities.length > 0) return
+
+		world.sendMessage('Round complete!')
+
+		this.incrementWave()
+	}
 }
 
 world.afterEvents.entityDie.subscribe(event => {
-    RoundManager.onEntityDie(event.deadEntity)
+	RoundManager.onEntityDie(event.deadEntity)
 })
-

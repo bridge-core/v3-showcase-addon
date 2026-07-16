@@ -9,6 +9,9 @@
 		},
 		"components": {
 			"survival:monster_spawn_point": {},
+			"minecraft:block_entity": {
+				"dynamic_properties": true
+			},
 			"minecraft:geometry": "minecraft:geometry.full_block",
 			"minecraft:material_instances": {
 				"*": {

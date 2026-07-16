@@ -10,7 +10,7 @@
 		"experimentalCustomProjectileFeatures": false,
 		"experimentalCreatorCameraFeatures": false,
 		"experimentalVoxelShapeFeatures": false,
-		"enableGameTestFramework": false,
+		"enableGameTestFramework": true,
 		"renderDragonFeatures": false,
 		"educationEdition": false
 	},
