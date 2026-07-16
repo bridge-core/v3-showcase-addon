@@ -5,8 +5,11 @@ function execute(source: CustomCommandOrigin, option: string): CustomCommandResu
     const entity = source.sourceEntity
 
     switch (option) {
+        case 'load': {
+            return executeLoad(entity)
+        }
         case 'start': {
-            return executeStart(entity)
+            return executeStart()
         }
         case 'stop': {
             return executeStop()
@@ -20,35 +23,30 @@ function execute(source: CustomCommandOrigin, option: string): CustomCommandResu
     }
 }
 
-function executeStart(entity: Entity): CustomCommandResult {
-    if (!RoundManager.canStart()) {
-        return {
-            status: CustomCommandStatus.Failure,
-            message: 'Failed to start round'
-        }
-    }
-
-    system.run(() => RoundManager.start(entity.dimension, 5))
+function executeLoad(entity: Entity): CustomCommandResult {
+    system.run(() => RoundManager.load(entity.dimension))
 
     return {
         status: CustomCommandStatus.Success,
-        message: 'Round started'
+        message: 'Executed load!'
+    }
+}
+
+function executeStart(): CustomCommandResult {
+    system.run(() => RoundManager.start())
+
+    return {
+        status: CustomCommandStatus.Success,
+        message: 'Executed start!'
     }
 }
 
 function executeStop(): CustomCommandResult {
-    if (!RoundManager.isRoundActive()) {
-        return {
-            status: CustomCommandStatus.Failure,
-            message: 'Failed to stop round'
-        }
-    }
-
     system.run(() => RoundManager.stop())
 
     return {
         status: CustomCommandStatus.Success,
-        message: 'Round stopped'
+        message: 'Executed stop!'
     }
 }
 
@@ -56,6 +54,7 @@ system.beforeEvents.startup.subscribe(event => {
     const registry = event.customCommandRegistry
 
     registry.registerEnum('survival:round_options', [
+        'load',
         'start',
         'stop'
     ])

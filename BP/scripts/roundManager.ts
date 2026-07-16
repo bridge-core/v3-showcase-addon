@@ -3,38 +3,61 @@ import { world, system, Vector3, Entity, Dimension } from '@minecraft/server'
 const DEBUG: boolean = true
 
 export class RoundManager {
+    private static state: 'lobby' | 'loading' | 'game' = 'lobby'
     private static dimension: Dimension | null = null
     private static difficulty: number = 0
     private static wave: number = 0
     private static spawnPoints: Set<Vector3> = new Set()
     private static trackedEntities: string[] = []
     private static tickerId: number = 0
-    private static active: boolean = false
 
-    public static canStart(): boolean {
-        return this.spawnPoints.size > 0 && !this.active
-    }
+    public static load(dimension: Dimension) {
+        if (this.state !== 'lobby') {
+            world.sendMessage(`Attempted to load when in state ${this.state}!`)
 
-    public static start(dimension: Dimension, difficulty: number) {
-        world.sendMessage(`Starting round with ${difficulty} difficulty.`)
+            return
+        }
+
+        if (this.spawnPoints.size === 0) {
+            world.sendMessage(`Attempted to load with no spawn points added yet!`)
+
+            return
+        }
+
+        this.state = 'loading'
 
         this.dimension = dimension
-        this.difficulty = difficulty
-        this.tickerId = system.runInterval(() => this.tick())
-        this.active = true
 
+        world.sendMessage(`Loading...`)
+    }
+
+    public static start() {
+        if (this.state !== 'loading') {
+            world.sendMessage(`Attempted to start when in state ${this.state}!`)
+
+            return
+        }
+
+        this.state = 'game'
+
+        this.trackedEntities = []
+        this.wave = 1
+        this.tickerId = system.runInterval(() => this.tick())
         this.incrementWave()
+
+        world.sendMessage(`Starting game...`)
     }
 
     public static stop() {
-        system.clearRun(this.tickerId)
+        if (this.state !== 'game') {
+            world.sendMessage(`Attempted to stop when in state ${this.state}!`)
 
-        this.dimension = null
-        this.difficulty = 0
-        this.wave = 0
-        this.trackedEntities = []
-        this.tickerId = 0
-        this.active = false
+            return
+        }
+
+        this.state = 'lobby'
+
+        system.clearRun(this.tickerId)
     }
 
     public static registerSpawnPoint(location: Vector3) {
@@ -54,7 +77,7 @@ export class RoundManager {
     }
 
     private static incrementWave(): void {
-        const waveDifficulty = this.difficulty * (1 + this.wave)
+        const waveDifficulty = world.getPlayers().length * this.wave
 
         let spawnPointQueue = [...this.spawnPoints]
 
@@ -82,10 +105,6 @@ export class RoundManager {
         world.sendMessage('Round complete!')
 
         this.incrementWave()
-    }
-
-    public static isRoundActive(): boolean {
-        return this.active
     }
 }
 
