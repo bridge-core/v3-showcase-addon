@@ -11,7 +11,7 @@ type Room = {
 export class RoomManager {
     public rooms: Room[] = []
 
-    public addRoom(vol: BlockVolume, name: string) {
+    public async addRoom(vol: BlockVolume, name: string) {
         const room: Room = {
             id: this.rooms.length,
             volume: vol,
@@ -21,33 +21,25 @@ export class RoomManager {
 
         this.rooms.push(room)
 
-        world.tickingAreaManager.createTickingArea(`survival:${room.id}`, {
-            dimension: world.getDimension("overworld"),
-            from: vol.from,
-            to: vol.to
+        const dataBlocks: ListBlockVolume = world.getDimension("overworld").getBlocks(vol, {
+            includeTypes: ["survival:lock", "survival:monster_spawn_point"]
         })
 
-        system.runTimeout(() => {
-            const dataBlocks: ListBlockVolume = world.getDimension("overworld").getBlocks(vol, {
-                includeTypes: ["survival:lock", "survival:monster_spawn_point"]
-            })
+        for (const blockLocation of dataBlocks.getBlockLocationIterator()) {
+            const dataBlock: Block = world.getDimension("overworld").getBlock(blockLocation)
 
-            for (const blockLocation of dataBlocks.getBlockLocationIterator()) {
-                const dataBlock: Block = world.getDimension("overworld").getBlock(blockLocation)
+            const dynamicProperties: any = dataBlock.getComponent("minecraft:dynamic_properties")
 
-                const dynamicProperties: any = dataBlock.getComponent("minecraft:dynamic_properties")
+            const structureData = {
+                room_id: room.id
+            };
 
-                const structureData = {
-                    room_id: room.id
-                };
+            (dynamicProperties as BlockDynamicPropertiesComponent).set("structureData", JSON.stringify(structureData))
+        }
 
-                (dynamicProperties as BlockDynamicPropertiesComponent).set("structureData", JSON.stringify(structureData))
-            }
+        world.sendMessage(room.name)
 
-            world.sendMessage(room.name)
-
-            if (name == "start") this.unlockRoom(room.id)
-        }, 20)
+        if (name == "start") this.unlockRoom(room.id)
     }
 
     public unlockRoom(roomId: number) {

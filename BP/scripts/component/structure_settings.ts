@@ -1,4 +1,4 @@
-import { BlockComponentPlayerInteractEvent, Vector3, system, BlockVolume, EquipmentSlot, BlockDynamicPropertiesComponent, BlockComponentOnPlaceEvent } from '@minecraft/server'
+import { BlockComponentPlayerInteractEvent, world, Vector3, system, BlockVolume, EquipmentSlot, BlockDynamicPropertiesComponent, BlockComponentOnPlaceEvent } from '@minecraft/server'
 import { CustomForm, ObservableString } from '@minecraft/server-ui'
 import { RoundManager } from '../roundManager'
 
@@ -9,12 +9,13 @@ system.beforeEvents.startup.subscribe(event => {
     })
 })
 
-function placeStucture(placeEvent: BlockComponentOnPlaceEvent) {
+async function placeStucture(placeEvent: BlockComponentOnPlaceEvent) {
     const dynamicProperties: any = placeEvent.block.getComponent("minecraft:dynamic_properties")
 
     const structureSettingsData = (dynamicProperties as BlockDynamicPropertiesComponent).get("structureSettings")
 
     if (!structureSettingsData) return
+
 
     const settings = JSON.parse(structureSettingsData as string)
 
@@ -66,7 +67,6 @@ function placeStucture(placeEvent: BlockComponentOnPlaceEvent) {
             z: blockLocation.z - volumeArea.z
         }
     }
-
 
     RoundManager.roomManager.addRoom(new BlockVolume(blockLocation, secondaryBlockLocation), settings.room_id)
 }
