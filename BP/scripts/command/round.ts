@@ -24,7 +24,7 @@ function execute(source: CustomCommandOrigin, option: string): CustomCommandResu
 }
 
 function executeLoad(entity: Entity): CustomCommandResult {
-    system.run(() => RoundManager.load(entity.dimension))
+    system.run(() => RoundManager.load(entity.location, entity.dimension))
 
     return {
         status: CustomCommandStatus.Success,
