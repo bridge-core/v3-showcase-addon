@@ -1,4 +1,4 @@
-import { world, system, Vector3, Entity, Dimension, BlockVolume, ListBlockVolume, Block, BlockDynamicPropertiesComponent } from '@minecraft/server'
+import { world, Vector3, BlockVolume, ListBlockVolume, Block, BlockDynamicPropertiesComponent } from '@minecraft/server'
 import { RoundManager } from './roundManager'
 
 type Room = {
@@ -10,11 +10,6 @@ type Room = {
 
 export class RoomManager {
     public rooms: Room[] = []
-    private dimension: Dimension
-
-    public constructor(dimension: Dimension) {
-        this.dimension = dimension
-    }
 
     public async addRoom(vol: BlockVolume, name: string) {
         const room: Room = {
@@ -55,7 +50,9 @@ export class RoomManager {
     }
 
     private clearLocks(room: Room): void {
-        const locks = this.dimension.getBlocks(room.volume, {
+        const dimension = world.getDimension('overworld')
+
+        const locks = dimension.getBlocks(room.volume, {
             includeTypes: ['survival:lock']
         })
 
@@ -70,19 +67,21 @@ export class RoomManager {
 
             const volume = new BlockVolume(pos, clearArea)
 
-            this.dimension.fillBlocks(volume, 'minecraft:air')
+            dimension.fillBlocks(volume, 'minecraft:air')
         }
     }
 
     private registerMonsterSpawnPoints(room: Room): void {
-        const spawnPoints: ListBlockVolume = this.dimension.getBlocks(room.volume, {
+        const dimension = world.getDimension('overworld')
+
+        const spawnPoints: ListBlockVolume = dimension.getBlocks(room.volume, {
             includeTypes: ['survival:monster_spawn_point']
         })
 
         for (const pos of spawnPoints.getBlockLocationIterator()) {
             console.log(`Registering spawn point at ${pos.x} ${pos.y} ${pos.z}`)
 
-            this.dimension.setBlockType(pos, 'minecraft:air')
+            dimension.setBlockType(pos, 'minecraft:air')
 
             RoundManager.registerSpawnPoint(pos)
         }

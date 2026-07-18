@@ -3,7 +3,6 @@ import { RoomManager } from './roomManager'
 import { place } from './systems/generationSystem'
 
 const DEBUG: boolean = true
-const DIMENSION: Dimension = world.getDimension('overworld')
 
 export class RoundManager {
 	private static state: 'lobby' | 'loading' | 'game' = 'lobby'
@@ -14,7 +13,7 @@ export class RoundManager {
 	private static trackedEntities: string[] = []
 	private static tickerId: number = 0
 
-	public static roomManager: RoomManager = new RoomManager(DIMENSION)
+	public static roomManager: RoomManager = new RoomManager()
 
 	public static load(location: Vector3, dimension: Dimension) {
 		if (this.state !== 'lobby') {
