@@ -7,7 +7,6 @@ const DEBUG: boolean = true
 export class RoundManager {
 	private static state: 'lobby' | 'loading' | 'game' = 'lobby'
 	private static dimension: Dimension | null = null
-	private static difficulty: number = 1
 	private static wave: number = 0
 	private static spawnPoints: Set<Vector3> = new Set()
 	private static trackedEntities: string[] = []
@@ -17,7 +16,7 @@ export class RoundManager {
 
 	public static load(location: Vector3, dimension: Dimension) {
 		if (this.state !== 'lobby') {
-			world.sendMessage(`Attempted to load when in state ${this.state}!`)
+			console.warn(`Attempted to load when in state ${this.state}!`)
 
 			return
 		}
@@ -32,7 +31,7 @@ export class RoundManager {
 
 	public static start() {
 		if (this.state !== 'loading') {
-			world.sendMessage(`Attempted to start when in state ${this.state}!`)
+			console.warn(`Attempted to start when in state ${this.state}!`)
 
 			return
 		}
@@ -46,7 +45,6 @@ export class RoundManager {
 		this.state = 'game'
 
 		this.trackedEntities = []
-		this.difficulty = 1
 		this.wave = 1
 		this.tickerId = system.runInterval(() => this.tick())
 		this.incrementWave()
@@ -56,14 +54,18 @@ export class RoundManager {
 
 	public static stop() {
 		if (this.state !== 'game') {
-			world.sendMessage(`Attempted to stop when in state ${this.state}!`)
-
+			console.warn(`Attempted to stop when in state ${this.state}!`)
 			return
 		}
 
-		this.state = 'lobby'
-
 		system.clearRun(this.tickerId)
+		this.tickerId = -1
+
+		this.dimension = null
+		this.trackedEntities = []
+		this.spawnPoints.clear()
+
+		this.state = 'lobby'
 	}
 
 	public static registerSpawnPoint(location: Vector3) {
@@ -89,7 +91,7 @@ export class RoundManager {
 	}
 
 	private static incrementWave(): void {
-		const waveDifficulty = this.difficulty * world.getPlayers().length * this.wave
+		const waveDifficulty = this.wave * world.getPlayers().length
 
 		let spawnPointQueue = [...this.spawnPoints]
 
@@ -112,7 +114,7 @@ export class RoundManager {
 			this.trackedEntities.push(entity.id)
 		}
 
-		this.difficulty++
+		this.wave++
 	}
 
 	public static onEntityDie(entity: Entity) {
