@@ -3,10 +3,10 @@ import { RoomManager } from './roomManager'
 import { place } from './systems/generationSystem'
 
 const DEBUG: boolean = true
+const DIMENSION: Dimension = world.getDimension('overworld')
 
 export class RoundManager {
 	private static state: 'lobby' | 'loading' | 'game' = 'lobby'
-	private static location: Vector3 | null = null
 	private static dimension: Dimension | null = null
 	private static difficulty: number = 1
 	private static wave: number = 0
@@ -14,7 +14,7 @@ export class RoundManager {
 	private static trackedEntities: string[] = []
 	private static tickerId: number = 0
 
-	public static roomManager: RoomManager = new RoomManager()
+	public static roomManager: RoomManager = new RoomManager(DIMENSION)
 
 	public static load(location: Vector3, dimension: Dimension) {
 		if (this.state !== 'lobby') {
@@ -24,8 +24,6 @@ export class RoundManager {
 		}
 
 		this.state = 'loading'
-
-		this.location = location
 		this.dimension = dimension
 
 		world.sendMessage(`Loading...`)
@@ -105,7 +103,13 @@ export class RoundManager {
 			const spawnPoint = spawnPointQueue[index]
 			spawnPointQueue.splice(index, 1)
 
-			const entity = this.dimension.spawnEntity('minecraft:zombie', { x: spawnPoint.x + 0.5, y: spawnPoint.y + 1, z: spawnPoint.z + 0.5 })
+			const spawnPos: Vector3 = {
+				x: spawnPoint.x + 0.5,
+				y: spawnPoint.y,
+				z: spawnPoint.z + 0.5
+			}
+
+			const entity = this.dimension.spawnEntity('minecraft:zombie', spawnPos)
 			this.trackedEntities.push(entity.id)
 		}
 

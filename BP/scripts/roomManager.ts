@@ -10,6 +10,11 @@ type Room = {
 
 export class RoomManager {
     public rooms: Room[] = []
+    private dimension: Dimension
+
+    public constructor(dimension: Dimension) {
+        this.dimension = dimension
+    }
 
     public async addRoom(vol: BlockVolume, name: string) {
         const room: Room = {
@@ -45,29 +50,41 @@ export class RoomManager {
     public unlockRoom(roomId: number) {
         const room: Room = this.rooms[roomId]
 
-        const lockBlocks: ListBlockVolume = world.getDimension("overworld").getBlocks(room.volume, {
-            includeTypes: ["survival:lock"]
+        this.clearLocks(room)
+        this.registerMonsterSpawnPoints(room)
+    }
+
+    private clearLocks(room: Room): void {
+        const locks = this.dimension.getBlocks(room.volume, {
+            includeTypes: ['survival:lock']
         })
 
-        for (const lockLocation of lockBlocks.getBlockLocationIterator()) {
+        for (const pos of locks.getBlockLocationIterator()) {
+            console.log(`Clearing lock at ${pos.x} ${pos.y} ${pos.z}`)
+
             const clearArea: Vector3 = {
-                x: lockLocation.x,
-                y: lockLocation.y - 1,
-                z: lockLocation.z
+                x: pos.x,
+                y: pos.y,
+                z: pos.z
             }
 
-            world.getDimension("overworld").fillBlocks(new BlockVolume(lockLocation, clearArea), "minecraft:air")
-        }
+            const volume = new BlockVolume(pos, clearArea)
 
-        const spawnerBlocks: ListBlockVolume = world.getDimension("overworld").getBlocks(room.volume, {
-            includeTypes: ["survival:monster_spawn_point"]
+            this.dimension.fillBlocks(volume, 'minecraft:air')
+        }
+    }
+
+    private registerMonsterSpawnPoints(room: Room): void {
+        const spawnPoints: ListBlockVolume = this.dimension.getBlocks(room.volume, {
+            includeTypes: ['survival:monster_spawn_point']
         })
 
-        world.sendMessage(`From: ${room.volume.from.x} ${room.volume.from.y} ${room.volume.from.z}, To: ${room.volume.to.x} ${room.volume.to.y} ${room.volume.to.z}`)
+        for (const pos of spawnPoints.getBlockLocationIterator()) {
+            console.log(`Registering spawn point at ${pos.x} ${pos.y} ${pos.z}`)
 
-        for (const spawnerLocation of spawnerBlocks.getBlockLocationIterator()) {
-            world.sendMessage("Registered spawner")
-            RoundManager.registerSpawnPoint(spawnerLocation)
+            this.dimension.setBlockType(pos, 'minecraft:air')
+
+            RoundManager.registerSpawnPoint(pos)
         }
     }
 

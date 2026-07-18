@@ -12,52 +12,49 @@ import { decrementItemAtSlot } from '../util/inventory'
 
 const ENTITY_ID = 'v3:plank_golem'
 
-export class PlankGolem {
+function giveArrow(player: Player, target: Entity, givenStack: ItemStack): void {
+    const dimension = target.dimension
+    const playerEquippableComp = player.getComponent('minecraft:equippable')
+    const overridesMainhandStack = player.matches({
+        excludeGameModes: [GameMode.Creative, GameMode.Spectator]
+    })
 
-    public static giveArrow(player: Player, target: Entity, givenStack: ItemStack): void {
-        const dimension = target.dimension
-        const playerEquippableComp = player.getComponent('minecraft:equippable')
-        const overridesMainhandStack = player.matches({
-            excludeGameModes: [GameMode.Creative, GameMode.Spectator]
-        })
+    const remainderStack = target.addItem(givenStack)
 
-        const remainderStack = target.addItem(givenStack)
-
-        if (overridesMainhandStack) {
-            playerEquippableComp.setEquipment(EquipmentSlot.Mainhand, remainderStack)
-        }
-
-        dimension.playSound('mob.plank_golem.insert', target.location)
+    if (overridesMainhandStack) {
+        playerEquippableComp.setEquipment(EquipmentSlot.Mainhand, remainderStack)
     }
 
-    public static takeArrow(entity: Entity): void {
-        const inventoryComp = entity.getComponent('minecraft:inventory')
-        const container = inventoryComp.container
+    dimension.playSound('mob.plank_golem.insert', target.location)
+}
 
-        const slot = container.getSlot(0)
+function takeArrow(entity: Entity): void {
+    const inventoryComp = entity.getComponent('minecraft:inventory')
+    const container = inventoryComp.container
 
-        decrementItemAtSlot(slot)
-    }
+    const slot = container.getSlot(0)
 
-    public static tick(entity: Entity): void {
-        const inventory = entity.getComponent('minecraft:inventory')
-        const container = inventory.container
+    decrementItemAtSlot(slot)
+}
 
-        entity.setProperty('v3:has_arrows', container.emptySlotsCount === 0)
-    }
+function tick(entity: Entity): void {
+    const inventory = entity.getComponent('minecraft:inventory')
+    const container = inventory.container
 
-    public static createTicker(entity: Entity): void {
-        const tickerId = system.runInterval(() => {
-            this.tick(entity)
-        })
-        entity.setDynamicProperty('v3:entity_ticker_id', tickerId)
-    }
+    entity.setProperty('v3:has_arrows', container.emptySlotsCount === 0)
+}
 
-    public static destroyTicker(entity: Entity): void {
-        const tickerId = entity.getDynamicProperty('v3:entity_ticker_id') as number
+function createTicker(entity: Entity): void {
+    const tickerId = system.runInterval(() => {
+        tick(entity)
+    })
+    entity.setDynamicProperty('v3:entity_ticker_id', tickerId)
+}
 
-        system.clearRun(tickerId)
-    }
+function destroyTicker(entity: Entity): void {
+    const tickerId = entity.getDynamicProperty('v3:entity_ticker_id') as number
+
+    system.clearRun(tickerId)
 }
 
 world.afterEvents.playerInteractWithEntity.subscribe(event => {
@@ -67,13 +64,13 @@ world.afterEvents.playerInteractWithEntity.subscribe(event => {
     const stack = event.itemStack
     if (!stack || stack.typeId !== 'minecraft:arrow') return
 
-    PlankGolem.giveArrow(event.player, event.target, stack)
+    giveArrow(event.player, event.target, stack)
 })
 world.afterEvents.entitySpawn.subscribe(event => {
     const entity = event.entity
 
     if (entity.typeId === ENTITY_ID) {
-        PlankGolem.createTicker(entity)
+        createTicker(entity)
     }
     if (entity.typeId === 'minecraft:arrow') {
         const projectileComp = entity.getComponent('minecraft:projectile')
@@ -81,7 +78,7 @@ world.afterEvents.entitySpawn.subscribe(event => {
         const owner = projectileComp.owner
         if (!owner || owner.typeId !== ENTITY_ID) return
 
-        PlankGolem.takeArrow(owner)
+        takeArrow(owner)
     }
 
 })
@@ -89,11 +86,11 @@ world.afterEvents.entityLoad.subscribe(event => {
     const entity = event.entity
     if (entity.typeId !== ENTITY_ID) return
 
-    PlankGolem.createTicker(entity)
+    createTicker(entity)
 })
 world.beforeEvents.entityRemove.subscribe(event => {
     const entity = event.removedEntity
     if (entity.typeId !== ENTITY_ID) return
 
-    PlankGolem.destroyTicker(entity)
+    destroyTicker(entity)
 })
