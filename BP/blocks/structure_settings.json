@@ -16,25 +16,27 @@
 			"minecraft:block_entity": {
 				"dynamic_properties": true
 			},
-			"minecraft:geometry": "minecraft:geometry.full_block",
+			"minecraft:geometry": {
+				"identifier": "geometry.structure_settings"
+			},
 			"minecraft:material_instances": {
 				"up": {
-					"texture": "settings_block_updown"
+					"texture": "structure_settings_side"
 				},
 				"down": {
-					"texture": "settings_block_updown"
-				},
-				"east": {
-					"texture": "settings_block_side"
+					"texture": "structure_settings_side"
 				},
 				"west": {
-					"texture": "settings_block_side"
+					"texture": "structure_settings_side"
+				},
+				"east": {
+					"texture": "structure_settings_side"
 				},
 				"north": {
-					"texture": "settings_block_side"
+					"texture": "structure_settings"
 				},
 				"south": {
-					"texture": "settings_block_side"
+					"texture": "structure_settings"
 				}
 			}
 		},
@@ -45,7 +47,7 @@
 					"minecraft:transformation": {
 						"rotation": [
 							0,
-							90,
+							180,
 							0
 						]
 					}
@@ -57,7 +59,7 @@
 					"minecraft:transformation": {
 						"rotation": [
 							0,
-							0,
+							90,
 							0
 						]
 					}
@@ -69,7 +71,7 @@
 					"minecraft:transformation": {
 						"rotation": [
 							0,
-							270,
+							0,
 							0
 						]
 					}
@@ -81,7 +83,7 @@
 					"minecraft:transformation": {
 						"rotation": [
 							0,
-							180,
+							270,
 							0
 						]
 					}

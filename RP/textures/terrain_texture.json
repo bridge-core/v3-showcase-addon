@@ -7,11 +7,11 @@
 		"monster_spawn_point": {
 			"textures": "textures/blocks/monster_spawn_point"
 		},
-		"settings_block_side": {
-			"textures": "textures/blocks/settings_block_updown"
+		"structure_settings": {
+			"textures": "textures/blocks/structure_settings"
 		},
-		"settings_block_updown": {
-			"textures": "textures/blocks/settings_block_side"
+		"structure_settings_side": {
+			"textures": "textures/blocks/structure_settings_side"
 		}
 	}
 }
