@@ -55,58 +55,13 @@
                   "test": "is_family",
                   "subject": "other",
                   "value": "player"
-                },
-                {
-                  "test": "is_family",
-                  "subject": "other",
-                  "value": "snowgolem"
-                },
-                {
-                  "test": "is_family",
-                  "subject": "other",
-                  "value": "irongolem"
                 }
               ]
             },
-            "max_dist": 35
-          },
-          {
-            "filters": {
-              "any_of": [
-                {
-                  "test": "is_family",
-                  "subject": "other",
-                  "value": "villager"
-                },
-                {
-                  "test": "is_family",
-                  "subject": "other",
-                  "value": "wandering_trader"
-                }
-              ]
-            },
-            "max_dist": 35,
-            "must_see": false
-          },
-          {
-            "filters": {
-              "all_of": [
-                {
-                  "test": "is_family",
-                  "subject": "other",
-                  "value": "baby_turtle"
-                },
-                {
-                  "test": "in_water",
-                  "subject": "other",
-                  "value": false
-                }
-              ]
-            },
-            "max_dist": 35
+            "max_dist": 200
           }
         ],
-        "priority": 2
+        "priority": 0
       },
       "minecraft:behavior.pickup_items": {
         "can_pickup_any_item": true,
