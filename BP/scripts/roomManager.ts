@@ -1,4 +1,4 @@
-import { world, Vector3, BlockVolume, ListBlockVolume, Block, BlockDynamicPropertiesComponent } from '@minecraft/server'
+import { world, system, Vector3, Entity, Dimension, BlockVolume, ListBlockVolume, Block, BlockDynamicPropertiesComponent } from '@minecraft/server'
 import { RoundManager } from './roundManager'
 
 type Room = {
@@ -34,12 +34,16 @@ export class RoomManager {
                 room_id: room.id
             };
 
+            if (dataBlock.typeId == "survival:lock") {
+                world.sendMessage("Registered lock for " + room.name)
+            }
+
             (dynamicProperties as BlockDynamicPropertiesComponent).set("structureData", JSON.stringify(structureData))
         }
 
         world.sendMessage(room.name)
 
-        if (name == "start") this.unlockRoom(room.id)
+        if (room.name == "start") this.unlockRoom(room.id)
     }
 
     public unlockRoom(roomId: number) {
@@ -50,9 +54,7 @@ export class RoomManager {
     }
 
     private clearLocks(room: Room): void {
-        const dimension = world.getDimension('overworld')
-
-        const locks = dimension.getBlocks(room.volume, {
+        const locks = world.getDimension("overworld").getBlocks(room.volume, {
             includeTypes: ['survival:lock']
         })
 
@@ -61,27 +63,25 @@ export class RoomManager {
 
             const clearArea: Vector3 = {
                 x: pos.x,
-                y: pos.y,
+                y: pos.y - 1,
                 z: pos.z
             }
 
             const volume = new BlockVolume(pos, clearArea)
 
-            dimension.fillBlocks(volume, 'minecraft:air')
+            world.getDimension("overworld").fillBlocks(volume, 'minecraft:air')
         }
     }
 
     private registerMonsterSpawnPoints(room: Room): void {
-        const dimension = world.getDimension('overworld')
-
-        const spawnPoints: ListBlockVolume = dimension.getBlocks(room.volume, {
+        const spawnPoints: ListBlockVolume = world.getDimension("overworld").getBlocks(room.volume, {
             includeTypes: ['survival:monster_spawn_point']
         })
 
         for (const pos of spawnPoints.getBlockLocationIterator()) {
             console.log(`Registering spawn point at ${pos.x} ${pos.y} ${pos.z}`)
 
-            dimension.setBlockType(pos, 'minecraft:air')
+            world.getDimension("overworld").setBlockType(pos, 'minecraft:air')
 
             RoundManager.registerSpawnPoint(pos)
         }

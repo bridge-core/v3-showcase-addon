@@ -43,9 +43,9 @@ async function placeStucture(placeEvent: BlockComponentOnPlaceEvent) {
     // 90 Degrees Rot
     if (currentStructureRot == "east") {
         secondaryBlockLocation = {
-            x: blockLocation.x - volumeArea.x,
+            x: blockLocation.x - volumeArea.z,
             y: blockLocation.y + volumeArea.y,
-            z: blockLocation.z + volumeArea.z
+            z: blockLocation.z + volumeArea.x
         }
     }
 
@@ -62,9 +62,9 @@ async function placeStucture(placeEvent: BlockComponentOnPlaceEvent) {
     // 270 Degrees Rot
     if (currentStructureRot == "west") {
         secondaryBlockLocation = {
-            x: blockLocation.x + volumeArea.x,
+            x: blockLocation.x + volumeArea.z,
             y: blockLocation.y + volumeArea.y,
-            z: blockLocation.z - volumeArea.z
+            z: blockLocation.z - volumeArea.x
         }
     }
 

@@ -4,8 +4,8 @@
 		"description": {
 			"identifier": "survival:start"
 		},
-		"start_pool": "survival:start",
-		"max_depth": 2,
+		"start_pool": "survival:tut",
+		"max_depth": 6,
 		"max_distance_from_center": 128,
 		"step": "surface_structures",
 		"start_height": {

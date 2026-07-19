@@ -17,7 +17,8 @@
                 "*": {
                     "texture": "bedrock"
                 }
-            }
+            },
+            "minecraft:destructible_by_mining": false
         }
     }
 }

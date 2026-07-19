@@ -16,7 +16,8 @@
 				"*": {
 					"texture": "monster_spawn_point"
 				}
-			}
+			},
+			"minecraft:destructible_by_mining": false
 		}
 	}
 }
