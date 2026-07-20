@@ -2,13 +2,13 @@ import { world, system, Vector3, Entity, Dimension } from '@minecraft/server'
 import { RoomManager } from './roomManager'
 import { place } from './systems/generationSystem'
 import { getRandomRange } from './util/math'
+import { distanceBetween } from './util/vector'
 
 const DEBUG: boolean = true
 
 export class RoundManager {
 	private static state: 'lobby' | 'loading' | 'game' = 'lobby'
 	private static dimension: Dimension | null = null
-	private static difficulty: number = 1
 	private static wave: number = 0
 	private static spawnPoints: Set<Vector3> = new Set()
 	private static trackedEntities: string[] = []
@@ -47,7 +47,6 @@ export class RoundManager {
 		this.state = 'game'
 
 		this.trackedEntities = []
-		this.difficulty = 1
 		this.wave = 1
 		this.tickerId = system.runInterval(() => this.tick())
 		this.incrementWave()
@@ -90,13 +89,14 @@ export class RoundManager {
 	}
 
 	private static incrementWave(): void {
-		const waveDifficulty = this.difficulty * world.getPlayers().length * this.wave
+		const waveDifficulty = this.wave * world.getPlayers().length
+		const spawnPoints = this.buildSpawnPoints()
 
-		let spawnPointQueue = [...this.spawnPoints]
+		let spawnPointQueue = [...spawnPoints]
 
 		for (let i = 0; i < waveDifficulty; i++) {
 			if (spawnPointQueue.length === 0) {
-				spawnPointQueue = [...this.spawnPoints]
+				spawnPointQueue = [...spawnPoints]
 			}
 
 			const index = Math.floor(Math.random() * spawnPointQueue.length)
@@ -115,7 +115,28 @@ export class RoundManager {
 			}, getRandomRange(5, 40))
 		}
 
-		this.difficulty++
+		this.wave++
+	}
+
+	private static buildSpawnPoints(): Set<Vector3> {
+		const spawnPoints: Set<Vector3> = new Set()
+
+		for (const player of world.getPlayers()) {
+			const sortedSpawnPoints = [...this.spawnPoints].sort((pointA, pointB) => {
+				const distanceA = distanceBetween(player.location, pointA)
+				const distanceB = distanceBetween(player.location, pointB)
+
+				return distanceA - distanceB
+			})
+
+			const selectionCount = Math.min(3, sortedSpawnPoints.length)
+
+			for (let i = 0; i < selectionCount; i++) {
+				spawnPoints.add(sortedSpawnPoints[i])
+			}
+		}
+
+		return spawnPoints
 	}
 
 	public static onEntityDie(entity: Entity) {
