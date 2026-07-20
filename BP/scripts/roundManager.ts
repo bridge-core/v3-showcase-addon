@@ -1,8 +1,8 @@
-import { world, system, Vector3, Entity, Dimension } from '@minecraft/server'
+import { world, system, Vector3, Entity, Dimension, TicksPerSecond } from '@minecraft/server'
 import { RoomManager } from './roomManager'
 import { place } from './systems/generationSystem'
-import { getRandomRange } from './util/math'
-import { distanceBetween } from './util/vector'
+import { randomInt, randomNumber } from './util/math'
+import { add, distanceBetween } from './util/vector'
 
 const DEBUG: boolean = true
 
@@ -62,6 +62,7 @@ export class RoundManager {
 		}
 
 		this.state = 'lobby'
+		this.trackedEntities = []
 
 		system.clearRun(this.tickerId)
 	}
@@ -104,18 +105,40 @@ export class RoundManager {
 			spawnPointQueue.splice(index, 1)
 
 			const spawnPos: Vector3 = {
-				x: spawnPoint.x + 0.5,
+				x: spawnPoint.x + 0.5 + randomNumber(-0.5, 0.5),
 				y: spawnPoint.y,
-				z: spawnPoint.z + 0.5
+				z: spawnPoint.z + 0.5 + randomNumber(-0.5, 0.5)
 			}
 
+			const delayTicks = randomInt(10, 40) * i
+
 			system.runTimeout(() => {
+				if (this.state !== 'game') return
+
 				const entity = this.dimension.spawnEntity('minecraft:zombie', spawnPos)
+
+				this.emitMonsterSpawnEffects(spawnPos, entity.getAABB().extent)
+				this.dimension.playSound('trial_spawner.spawn_mob', spawnPos)
+
 				this.trackedEntities.push(entity.id)
-			}, getRandomRange(5, 40))
+			}, delayTicks)
 		}
 
 		this.wave++
+	}
+
+	private static emitMonsterSpawnEffects(origin: Vector3, size: Vector3): void {
+		const amount = 5 * Math.floor(size.x + size.y + size.z)
+
+		for (let i = 0; i < amount; i++) {
+			const emitPos = add(origin, {
+				x: randomNumber(-size.x, size.x),
+				y: randomNumber(0, size.y * 2),
+				z: randomNumber(-size.z, size.z)
+			})
+
+			this.dimension.spawnParticle('minecraft:blue_flame_particle', emitPos)
+		}
 	}
 
 	private static buildSpawnPoints(): Set<Vector3> {

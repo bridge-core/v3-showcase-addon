@@ -3,8 +3,8 @@ import { Vector3 } from '@minecraft/server'
 export function add(vecA: Vector3, vecB: Vector3): Vector3 {
     return {
         x: vecA.x + vecB.x,
-        y: vecA.x + vecB.y,
-        z: vecA.x + vecB.z
+        y: vecA.y + vecB.y,
+        z: vecA.z + vecB.z
     }
 }
 
