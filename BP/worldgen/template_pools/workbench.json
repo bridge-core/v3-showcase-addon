@@ -1,0 +1,37 @@
+{
+    "format_version": "1.26.20",
+    "minecraft:template_pool": {
+        "description": {
+            "identifier": "survival:workbench"
+        },
+        "elements": [
+            {
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "survival/workbench/crafting_table",
+                    "projection": "rigid",
+                    "processors": "survival:empty"
+                },
+                "weight": 60
+            },
+            {
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "survival/workbench/anvil",
+                    "projection": "rigid",
+                    "processors": "survival:empty"
+                },
+                "weight": 20
+            },
+            {
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "survival/workbench/brewing_stand",
+                    "projection": "rigid",
+                    "processors": "survival:empty"
+                },
+                "weight": 20
+            }
+        ]
+    }
+}

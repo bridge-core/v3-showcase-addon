@@ -8,7 +8,7 @@
 			{
 				"element": {
 					"element_type": "minecraft:single_pool_element",
-					"location": "survival/courtyard",
+					"location": "survival/room/courtyard",
 					"projection": "rigid",
 					"processors": "survival:empty"
 				},
@@ -17,7 +17,7 @@
 			{
 				"element": {
 					"element_type": "minecraft:single_pool_element",
-					"location": "survival/armory",
+					"location": "survival/room/armory",
 					"projection": "rigid",
 					"processors": "survival:empty"
 				},
@@ -26,7 +26,7 @@
 			{
 				"element": {
 					"element_type": "minecraft:single_pool_element",
-					"location": "survival/cafe",
+					"location": "survival/room/cafe",
 					"projection": "rigid",
 					"processors": "survival:empty"
 				},
@@ -35,7 +35,7 @@
 			{
 				"element": {
 					"element_type": "minecraft:single_pool_element",
-					"location": "survival/dungeon",
+					"location": "survival/room/dungeon",
 					"projection": "rigid",
 					"processors": "survival:empty"
 				},
@@ -44,7 +44,7 @@
 			{
 				"element": {
 					"element_type": "minecraft:single_pool_element",
-					"location": "survival/library",
+					"location": "survival/room/library",
 					"projection": "rigid",
 					"processors": "survival:empty"
 				},

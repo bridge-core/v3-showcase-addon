@@ -8,7 +8,7 @@
 			{
 				"element": {
 					"element_type": "minecraft:single_pool_element",
-					"location": "survival/foyer",
+					"location": "survival/room/foyer",
 					"projection": "rigid",
 					"processors": "survival:empty"
 				},

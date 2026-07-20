@@ -1,0 +1,98 @@
+{
+    "pools": [
+        {
+            "rolls": {
+                "min": 2,
+                "max": 5
+            },
+            "entries": [
+                {
+                    "type": "item",
+                    "functions": [
+                        {
+                            "function": "set_count",
+                            "count": {
+                                "min": 3,
+                                "max": 10
+                            }
+                        }
+                    ],
+                    "name": "minecraft:arrow",
+                    "weight": 20
+                },
+                {
+                    "type": "item",
+                    "functions": [
+                        {
+                            "function": "set_count",
+                            "count": {
+                                "min": 2,
+                                "max": 6
+                            }
+                        }
+                    ],
+                    "name": "minecraft:stick",
+                    "weight": 20
+                },
+                {
+                    "type": "item",
+                    "functions": [
+                        {
+                            "function": "set_count",
+                            "count": {
+                                "min": 1,
+                                "max": 6
+                            }
+                        }
+                    ],
+                    "name": "minecraft:copper_ingot",
+                    "weight": 20
+                },
+                {
+                    "type": "item",
+                    "functions": [
+                        {
+                            "function": "set_count",
+                            "count": {
+                                "min": 1,
+                                "max": 2
+                            }
+                        }
+                    ],
+                    "name": "minecraft:stone_sword",
+                    "weight": 10
+                },
+                {
+                    "type": "item",
+                    "name": "minecraft:iron_spear",
+                    "weight": 10
+                },
+                {
+                    "type": "item",
+                    "name": "minecraft:iron_sword",
+                    "weight": 10
+                },
+                {
+                    "type": "item",
+                    "name": "minecraft:chainmail_helmet",
+                    "weight": 10
+                },
+                {
+                    "type": "item",
+                    "name": "minecraft:chainmail_chestplate",
+                    "weight": 10
+                },
+                {
+                    "type": "item",
+                    "name": "minecraft:chainmail_leggings",
+                    "weight": 10
+                },
+                {
+                    "type": "item",
+                    "name": "minecraft:chainmail_boots",
+                    "weight": 10
+                }
+            ]
+        }
+    ]
+}

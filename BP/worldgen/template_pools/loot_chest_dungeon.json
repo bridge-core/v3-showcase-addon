@@ -1,0 +1,25 @@
+{
+    "format_version": "1.26.20",
+    "minecraft:template_pool": {
+        "description": {
+            "identifier": "survival:loot_chest_dungeon"
+        },
+        "elements": [
+            {
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "survival/loot/loot_chest_dungeon",
+                    "projection": "rigid",
+                    "processors": "survival:empty"
+                },
+                "weight": 50
+            },
+            {
+                "element": {
+                    "element_type": "minecraft:empty_pool_element"
+                },
+                "weight": 50
+            }
+        ]
+    }
+}
