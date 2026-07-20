@@ -129,12 +129,17 @@ export class RoundManager {
 
 	private static emitMonsterSpawnEffects(origin: Vector3, size: Vector3): void {
 		const amount = 5 * Math.floor(size.x + size.y + size.z)
+		const radius = add(size, {
+			x: 0.1,
+			y: 0.1,
+			z: 0.1
+		})
 
 		for (let i = 0; i < amount; i++) {
 			const emitPos = add(origin, {
-				x: randomNumber(-size.x, size.x),
-				y: randomNumber(0, size.y * 2),
-				z: randomNumber(-size.z, size.z)
+				x: randomNumber(-radius.x, radius.x),
+				y: randomNumber(0, radius.y * 2),
+				z: randomNumber(-radius.z, radius.z)
 			})
 
 			this.dimension.spawnParticle('minecraft:blue_flame_particle', emitPos)
