@@ -12,6 +12,12 @@
 		},
 		"structure_settings_side": {
 			"textures": "textures/blocks/structure_settings_side"
+		},
+		"lock": {
+			"textures": "textures/blocks/lock"
+		},
+		"lock_front": {
+			"textures": "textures/blocks/lock_front"
 		}
 	}
 }

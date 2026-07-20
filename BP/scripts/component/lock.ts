@@ -1,4 +1,4 @@
-import { BlockComponentPlayerInteractEvent, Vector3, system, BlockVolume, EquipmentSlot, BlockDynamicPropertiesComponent } from '@minecraft/server'
+import { BlockComponentPlayerInteractEvent, Vector3, system, BlockVolume, EquipmentSlot, BlockDynamicPropertiesComponent, world } from '@minecraft/server'
 import { RoundManager } from '../roundManager'
 import { decrementItemAtSlot } from '../util/inventory'
 
@@ -12,7 +12,7 @@ function clearDoor(lockEvent: BlockComponentPlayerInteractEvent) {
     const equippable = lockEvent.player.getComponent('minecraft:equippable')
 
     const mainhandSlot = equippable.getEquipmentSlot(EquipmentSlot.Mainhand)
-    if (!mainhandSlot.hasItem() || mainhandSlot.typeId !== 'minecraft:trial_key') return
+    if (!mainhandSlot.hasItem() || mainhandSlot.typeId !== 'survival:key') return
 
     decrementItemAtSlot(mainhandSlot)
 

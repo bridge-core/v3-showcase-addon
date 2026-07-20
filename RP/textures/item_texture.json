@@ -4,6 +4,9 @@
 	"texture_data": {
 		"plank_golem_spawn_egg": {
 			"textures": "textures/items/spawn_eggs/spawn_egg_plank_golem"
+		},
+		"key": {
+			"textures": "textures/items/key"
 		}
 	}
 }

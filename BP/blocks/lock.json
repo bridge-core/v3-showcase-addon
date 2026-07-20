@@ -5,6 +5,13 @@
             "identifier": "survival:lock",
             "menu_category": {
                 "category": "construction"
+            },
+            "traits": {
+                "minecraft:placement_direction": {
+                    "enabled_states": [
+                        "minecraft:cardinal_direction"
+                    ]
+                }
             }
         },
         "components": {
@@ -15,10 +22,63 @@
             "minecraft:geometry": "minecraft:geometry.full_block",
             "minecraft:material_instances": {
                 "*": {
-                    "texture": "bedrock"
+                    "texture": "lock"
+                },
+                "north": {
+                    "texture": "lock_front"
                 }
             },
             "minecraft:destructible_by_mining": false
-        }
+        },
+        "permutations": [
+            {
+                "condition": "q.block_state('minecraft:cardinal_direction') == 'north'",
+                "components": {
+                    "minecraft:transformation": {
+                        "rotation": [
+                            0,
+                            180,
+                            0
+                        ]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('minecraft:cardinal_direction') == 'east'",
+                "components": {
+                    "minecraft:transformation": {
+                        "rotation": [
+                            0,
+                            90,
+                            0
+                        ]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('minecraft:cardinal_direction') == 'south'",
+                "components": {
+                    "minecraft:transformation": {
+                        "rotation": [
+                            0,
+                            0,
+                            0
+                        ]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('minecraft:cardinal_direction') == 'west'",
+                "components": {
+                    "minecraft:transformation": {
+                        "rotation": [
+                            0,
+                            270,
+                            0
+                        ]
+                    }
+                }
+            }
+        ]
     }
 }
