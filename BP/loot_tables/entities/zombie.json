@@ -97,7 +97,7 @@
             "entries": [
                 {
                     "type": "item",
-                    "name": "minecraft:trial_key",
+                    "name": "survival:key",
                     "weight": 1
                 }
             ]
