@@ -10,7 +10,7 @@ import {
 
 import { decrementItemAtSlot } from '../util/inventory'
 
-const ENTITY_ID = 'v3:plank_golem'
+const ENTITY_ID = 'survival:plank_golem'
 
 function giveArrow(player: Player, target: Entity, givenStack: ItemStack): void {
     const dimension = target.dimension
@@ -41,18 +41,18 @@ function tick(entity: Entity): void {
     const inventory = entity.getComponent('minecraft:inventory')
     const container = inventory.container
 
-    entity.setProperty('v3:has_arrows', container.emptySlotsCount === 0)
+    entity.setProperty('survival:has_arrows', container.emptySlotsCount === 0)
 }
 
 function createTicker(entity: Entity): void {
     const tickerId = system.runInterval(() => {
         tick(entity)
     })
-    entity.setDynamicProperty('v3:entity_ticker_id', tickerId)
+    entity.setDynamicProperty('survival:entity_ticker_id', tickerId)
 }
 
 function destroyTicker(entity: Entity): void {
-    const tickerId = entity.getDynamicProperty('v3:entity_ticker_id') as number
+    const tickerId = entity.getDynamicProperty('survival:entity_ticker_id') as number
 
     system.clearRun(tickerId)
 }
