@@ -1,4 +1,4 @@
-import { world, system, Vector3, Entity, Dimension, TicksPerSecond } from '@minecraft/server'
+import { world, system, Vector3, Entity, Dimension, TicksPerSecond, MolangVariableMap } from '@minecraft/server'
 import { RoomManager } from './roomManager'
 import { place } from './systems/generationSystem'
 import { randomInt, randomNumber } from './util/math'
@@ -114,10 +114,9 @@ export class RoundManager {
 
 			system.runTimeout(() => {
 				if (this.state !== 'game') return
-
 				const entity = this.dimension.spawnEntity('minecraft:zombie', spawnPos)
 
-				this.emitMonsterSpawnEffects(spawnPos, entity.getAABB().extent)
+				this.spawnMonsterSpawnEmitter(entity)
 				this.dimension.playSound('trial_spawner.spawn_mob', spawnPos)
 
 				this.trackedEntities.push(entity.id)
@@ -127,23 +126,13 @@ export class RoundManager {
 		this.wave++
 	}
 
-	private static emitMonsterSpawnEffects(origin: Vector3, size: Vector3): void {
-		const amount = 5 * Math.floor(size.x + size.y + size.z)
-		const radius = add(size, {
-			x: 0.1,
-			y: 0.1,
-			z: 0.1
-		})
+	private static spawnMonsterSpawnEmitter(entity: Entity): void {
+		const boundingBox = entity.getAABB()
 
-		for (let i = 0; i < amount; i++) {
-			const emitPos = add(origin, {
-				x: randomNumber(-radius.x, radius.x),
-				y: randomNumber(0, radius.y * 2),
-				z: randomNumber(-radius.z, radius.z)
-			})
+		const molangVariables = new MolangVariableMap()
+		molangVariables.setVector3('size', boundingBox.extent)
 
-			this.dimension.spawnParticle('minecraft:blue_flame_particle', emitPos)
-		}
+		this.dimension.spawnParticle('survival:monster_spawn_emitter', boundingBox.center, molangVariables)
 	}
 
 	private static buildSpawnPoints(): Set<Vector3> {

@@ -40,9 +40,6 @@
 			"sound_effects": {
 				"shoot": "mob.plank_golem.shoot"
 			},
-			"particle_effects": {
-				"dust": "survival:wide_dust_plume"
-			},
 			"spawn_egg": {
 				"texture": "plank_golem_spawn_egg"
 			}
