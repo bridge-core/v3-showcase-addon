@@ -4,6 +4,7 @@ import { place } from './systems/generationSystem'
 import { randomInt, randomNumber } from './util/math'
 import { add, distanceBetween } from './util/vector'
 import { initiateScore, assignPlayerDefaultScore, clearPlayerScore, subscribeToScoreCounter, unsubscribeToScoreCounter } from './systems/scoreSystem'
+import { initiatePlayerStartKit } from './systems/playerStartKitSystem'
 
 
 const DEBUG: boolean = true
@@ -53,6 +54,8 @@ export class RoundManager {
 		// Score
 		assignPlayerDefaultScore()
 		subscribeToScoreCounter()
+
+		initiatePlayerStartKit()
 
 		this.trackedEntities = []
 		this.wave = 1
