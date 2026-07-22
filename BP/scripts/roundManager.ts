@@ -1,8 +1,10 @@
-import { world, system, Vector3, Entity, Dimension, TicksPerSecond, MolangVariableMap } from '@minecraft/server'
+import { world, system, Vector3, Entity, Dimension, TicksPerSecond, MolangVariableMap, DisplaySlotId } from '@minecraft/server'
 import { RoomManager } from './roomManager'
 import { place } from './systems/generationSystem'
 import { randomInt, randomNumber } from './util/math'
 import { add, distanceBetween } from './util/vector'
+import { initiateScore, assignPlayerDefaultScore, clearPlayerScore, subscribeToScoreCounter, unsubscribeToScoreCounter } from './systems/scoreSystem'
+
 
 const DEBUG: boolean = true
 
@@ -26,6 +28,8 @@ export class RoundManager {
 		this.state = 'loading'
 		this.dimension = dimension
 
+		initiateScore()
+
 		world.sendMessage(`Loading...`)
 
 		place(location, dimension)
@@ -46,6 +50,10 @@ export class RoundManager {
 
 		this.state = 'game'
 
+		// Score
+		assignPlayerDefaultScore()
+		subscribeToScoreCounter()
+
 		this.trackedEntities = []
 		this.wave = 1
 		this.tickerId = system.runInterval(() => this.tick())
@@ -63,6 +71,10 @@ export class RoundManager {
 
 		this.state = 'lobby'
 		this.trackedEntities = []
+
+		// Score
+		clearPlayerScore()
+		unsubscribeToScoreCounter()
 
 		system.clearRun(this.tickerId)
 	}
