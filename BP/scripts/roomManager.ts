@@ -1,4 +1,4 @@
-import { world, system, Vector3, Entity, Dimension, BlockVolume, ListBlockVolume, Block, BlockDynamicPropertiesComponent } from '@minecraft/server'
+import { world, system, Vector3, Entity, Dimension, BlockVolume, ListBlockVolume, Block, BlockDynamicPropertiesComponent, DisplaySlotId } from '@minecraft/server'
 import { RoundManager } from './roundManager'
 
 type Room = {

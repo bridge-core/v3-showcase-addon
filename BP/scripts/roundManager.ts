@@ -5,7 +5,7 @@ import { randomInt, randomNumber } from './util/math'
 import { add, distanceBetween } from './util/vector'
 import { initiateScore, assignPlayerDefaultScore, clearPlayerScore, subscribeToScoreCounter, unsubscribeToScoreCounter } from './systems/scoreSystem'
 import { initiatePlayerStartKit } from './systems/playerStartKitSystem'
-
+import { createRespawnSystem, destroyRespawnSystem } from './systems/respawnSystem'
 
 const DEBUG: boolean = true
 
@@ -56,6 +56,7 @@ export class RoundManager {
 		subscribeToScoreCounter()
 
 		initiatePlayerStartKit()
+		createRespawnSystem()
 
 		this.trackedEntities = []
 		this.wave = 1
@@ -78,6 +79,7 @@ export class RoundManager {
 		// Score
 		clearPlayerScore()
 		unsubscribeToScoreCounter()
+		destroyRespawnSystem()
 
 		system.clearRun(this.tickerId)
 	}
