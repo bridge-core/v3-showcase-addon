@@ -10,7 +10,7 @@
 					"element_type": "minecraft:single_pool_element",
 					"location": "survival/hallway/corner_hallway",
 					"projection": "rigid",
-					"processors": "survival:empty"
+					"processors": "survival:mossify_15_percent"
 				},
 				"weight": 18
 			},
@@ -19,7 +19,7 @@
 					"element_type": "minecraft:single_pool_element",
 					"location": "survival/hallway/long_hallway",
 					"projection": "rigid",
-					"processors": "survival:empty"
+					"processors": "survival:mossify_15_percent"
 				},
 				"weight": 15
 			},
@@ -28,7 +28,7 @@
 					"element_type": "minecraft:single_pool_element",
 					"location": "survival/hallway/outdoor_hallway",
 					"projection": "rigid",
-					"processors": "survival:empty"
+					"processors": "survival:mossify_15_percent"
 				},
 				"weight": 12
 			},
@@ -37,7 +37,7 @@
 					"element_type": "minecraft:single_pool_element",
 					"location": "survival/hallway/small_hallway",
 					"projection": "rigid",
-					"processors": "survival:empty"
+					"processors": "survival:mossify_15_percent"
 				},
 				"weight": 25
 			},
@@ -46,7 +46,7 @@
 					"element_type": "minecraft:single_pool_element",
 					"location": "survival/hallway/small_staircase",
 					"projection": "rigid",
-					"processors": "survival:empty"
+					"processors": "survival:mossify_15_percent"
 				},
 				"weight": 8
 			}

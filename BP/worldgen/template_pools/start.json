@@ -10,7 +10,7 @@
 					"element_type": "minecraft:single_pool_element",
 					"location": "survival/room/foyer",
 					"projection": "rigid",
-					"processors": "survival:empty"
+					"processors": "survival:mossify_15_percent"
 				},
 				"weight": 100
 			}
