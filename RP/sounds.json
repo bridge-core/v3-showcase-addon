@@ -1,14 +1,17 @@
 {
     "entity_sounds": {
         "entities": {
-            "v3:plank_golem": {
+            "survival:plank_golem": {
                 "events": {
                     "ambient": "mob.plank_golem.idle",
                     "step": "mob.plank_golem.step",
                     "hurt": "mob.plank_golem.hurt",
                     "death": "mob.plank_golem.death"
                 },
-                "pitch": [0.8, 1.2],
+                "pitch": [
+                    0.8,
+                    1.2
+                ],
                 "volume": 1.0
             }
         }
