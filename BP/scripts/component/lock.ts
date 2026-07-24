@@ -1,4 +1,4 @@
-import { BlockComponentPlayerInteractEvent, Vector3, system, BlockVolume, EquipmentSlot, BlockDynamicPropertiesComponent, world } from '@minecraft/server'
+import { BlockComponentPlayerInteractEvent, system, BlockVolume, EquipmentSlot, BlockDynamicPropertiesComponent } from '@minecraft/server'
 import { RoundManager } from '../roundManager'
 import { decrementItemAtSlot } from '../util/inventory'
 
@@ -9,11 +9,19 @@ system.beforeEvents.startup.subscribe(event => {
 })
 
 function clearDoor(lockEvent: BlockComponentPlayerInteractEvent) {
+    const block = lockEvent.block
+    const dimension = lockEvent.dimension
+
     const equippable = lockEvent.player.getComponent('minecraft:equippable')
 
     const mainhandSlot = equippable.getEquipmentSlot(EquipmentSlot.Mainhand)
-    if (!mainhandSlot.hasItem() || mainhandSlot.typeId !== 'survival:key') return
+    if (!mainhandSlot.hasItem() || mainhandSlot.typeId !== 'survival:key') {
+        dimension.playSound('vault.insert_item_fail', block.center())
 
+        return
+    }
+
+    dimension.playSound('vault.insert_item', block.center())
     decrementItemAtSlot(mainhandSlot)
 
     const dynamicProperties: any = lockEvent.block.getComponent("minecraft:dynamic_properties")
