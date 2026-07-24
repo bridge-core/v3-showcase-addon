@@ -26,9 +26,13 @@
                 },
                 "north": {
                     "texture": "lock_front"
+                },
+                "south": {
+                    "texture": "lock_front"
                 }
             },
-            "minecraft:destructible_by_mining": false
+            "minecraft:destructible_by_mining": false,
+            "minecraft:destructible_by_explosion": false
         },
         "permutations": [
             {

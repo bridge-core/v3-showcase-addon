@@ -1,4 +1,4 @@
-import { world, system, Vector3, Entity, Dimension, TicksPerSecond, MolangVariableMap, DisplaySlotId } from '@minecraft/server'
+import { world, system, Vector3, Entity, Dimension, MolangVariableMap } from '@minecraft/server'
 import { RoomManager } from './roomManager'
 import { place } from './systems/generationSystem'
 import { randomInt, randomNumber } from './util/math'
@@ -13,7 +13,8 @@ export class RoundManager {
 	private static state: 'lobby' | 'loading' | 'game' = 'lobby'
 	private static dimension: Dimension | null = null
 	private static wave: number = 0
-	private static spawnPoints: Set<Vector3> = new Set()
+	private static playerSpawnPoints: Set<Vector3> = new Set()
+	private static monsterSpawnPoints: Set<Vector3> = new Set()
 	private static trackedEntities: string[] = []
 	private static tickerId: number = 0
 
@@ -43,7 +44,7 @@ export class RoundManager {
 			return
 		}
 
-		if (this.spawnPoints.size === 0) {
+		if (this.monsterSpawnPoints.size === 0) {
 			world.sendMessage(`Attempted to load with no spawn points added yet!`)
 
 			return
@@ -75,32 +76,29 @@ export class RoundManager {
 
 		this.state = 'lobby'
 		this.trackedEntities = []
+		this.playerSpawnPoints.clear()
+		this.monsterSpawnPoints.clear()
 
 		// Score
 		clearPlayerScore()
 		unsubscribeToScoreCounter()
+
 		destroyRespawnSystem()
 
 		system.clearRun(this.tickerId)
 	}
 
-	public static registerSpawnPoint(location: Vector3) {
-		this.spawnPoints.add(location)
+	public static registerPlayerSpawnPoint(location: Vector3) {
+		this.playerSpawnPoints.add(location)
 	}
 
-	public static clearSpawnPoint(location: Vector3) {
-		for (const point of this.spawnPoints) {
-			if (point.x !== location.x) continue
-			if (point.y !== location.y) continue
-			if (point.z !== location.z) continue
-
-			this.spawnPoints.delete(point)
-		}
+	public static registerMonsterSpawnPoint(location: Vector3) {
+		this.monsterSpawnPoints.add(location)
 	}
 
 	private static tick(): void {
 		if (DEBUG && system.currentTick % 10 === 0) {
-			for (const spawnPoint of this.spawnPoints) {
+			for (const spawnPoint of this.monsterSpawnPoints) {
 				this.dimension.spawnParticle('minecraft:blue_flame_particle', spawnPoint)
 			}
 		}
@@ -156,7 +154,7 @@ export class RoundManager {
 		const spawnPoints: Set<Vector3> = new Set()
 
 		for (const player of world.getPlayers()) {
-			const sortedSpawnPoints = [...this.spawnPoints].sort((pointA, pointB) => {
+			const sortedSpawnPoints = [...this.monsterSpawnPoints].sort((pointA, pointB) => {
 				const distanceA = distanceBetween(player.location, pointA)
 				const distanceB = distanceBetween(player.location, pointB)
 

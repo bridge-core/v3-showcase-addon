@@ -38,7 +38,9 @@
 				"south": {
 					"texture": "structure_settings"
 				}
-			}
+			},
+			"minecraft:destructible_by_mining": false,
+			"minecraft:destructible_by_explosion": false
 		},
 		"permutations": [
 			{
