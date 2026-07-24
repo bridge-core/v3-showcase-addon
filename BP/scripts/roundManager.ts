@@ -13,6 +13,10 @@ export class RoundManager {
 	private static state: 'lobby' | 'loading' | 'game' = 'lobby'
 	private static dimension: Dimension | null = null
 	private static wave: number = 0
+	/**
+	 * player spawn points do not currently do anything.
+	 * we will need to use them for transferring players to the map or respawning them.
+	 */
 	private static playerSpawnPoints: Set<Vector3> = new Set()
 	private static monsterSpawnPoints: Set<Vector3> = new Set()
 	private static trackedEntities: string[] = []
@@ -59,6 +63,7 @@ export class RoundManager {
 		initiatePlayerStartKit()
 		createRespawnSystem()
 
+		this.roomManager.reset()
 		this.trackedEntities = []
 		this.wave = 1
 		this.tickerId = system.runInterval(() => this.tick())

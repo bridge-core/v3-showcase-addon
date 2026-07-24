@@ -81,7 +81,7 @@ export class RoomManager {
 
             world.getDimension("overworld").setBlockType(pos, 'minecraft:air')
 
-            RoundManager.registerSpawnPoint(pos)
+            RoundManager.registerMonsterSpawnPoint(pos)
         }
     }
 
@@ -96,6 +96,8 @@ export class RoomManager {
             console.log(`Registering player spawn point at ${pos.x} ${pos.y} ${pos.z}`)
 
             dimension.setBlockType(pos, 'minecraft:air')
+
+            RoundManager.registerPlayerSpawnPoint(pos)
         }
     }
 

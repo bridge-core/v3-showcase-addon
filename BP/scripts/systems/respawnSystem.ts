@@ -4,8 +4,12 @@ let ticker = -1
 
 function onEntityDieAfter(event: EntityDieAfterEvent): void {
     const player = event.deadEntity
+    const location = player.location
+    const dimension = player.dimension
 
     player.addTag('dead')
+
+    dimension.runCommand(`spawnpoint ${player.nameplateRenderDistance} ${location.x} ${location.y} ${location.z}`)
 }
 
 function onTick(): void {
