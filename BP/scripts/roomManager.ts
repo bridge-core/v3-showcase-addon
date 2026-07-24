@@ -31,6 +31,7 @@ export class RoomManager {
         const room: Room = this.rooms[roomId]
 
         this.clearLocks(room)
+        this.registerPlayerSpawnPoints(room)
         this.registerMonsterSpawnPoints(room)
     }
 

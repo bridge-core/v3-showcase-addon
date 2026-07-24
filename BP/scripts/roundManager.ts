@@ -124,11 +124,11 @@ export class RoundManager {
 			const spawnPoint = spawnPointQueue[index]
 			spawnPointQueue.splice(index, 1)
 
-			const spawnPos: Vector3 = {
-				x: spawnPoint.x + 0.5 + randomNumber(-0.5, 0.5),
-				y: spawnPoint.y,
-				z: spawnPoint.z + 0.5 + randomNumber(-0.5, 0.5)
-			}
+			const spawnPos: Vector3 = add(spawnPoint, {
+				x: 0.5,
+				y: 0,
+				z: 0.5
+			})
 
 			const delayTicks = randomInt(10, 40) * i
 
