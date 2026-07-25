@@ -63,7 +63,6 @@ export class RoundManager {
 		initiatePlayerStartKit()
 		createRespawnSystem()
 
-		this.roomManager.reset()
 		this.trackedEntities = []
 		this.wave = 1
 		this.tickerId = system.runInterval(() => this.tick())

@@ -1,7 +1,6 @@
 import { BlockComponentPlayerInteractEvent, system, BlockVolume, EquipmentSlot, BlockDynamicPropertiesComponent } from '@minecraft/server'
 import { RoundManager } from '../roundManager'
 import { decrementItemAtSlot } from '../util/inventory'
-import { add } from '../util/vector'
 
 system.beforeEvents.startup.subscribe(event => {
     event.blockComponentRegistry.registerCustomComponent('survival:lock', {
@@ -29,12 +28,4 @@ function clearDoor(lockEvent: BlockComponentPlayerInteractEvent) {
     const roomId = dynamicProperties.get('survival:room_id') as number ?? -1
 
     RoundManager.roomManager.unlockRoom(roomId)
-
-    const volume = new BlockVolume(block, add(block, {
-        x: 0,
-        y: -1,
-        z: 0
-    }))
-
-    dimension.fillBlocks(volume, 'minecraft:air')
 }
