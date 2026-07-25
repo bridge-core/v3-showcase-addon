@@ -17,6 +17,18 @@ export function decrementItemAtSlot(slot: ContainerSlot): boolean {
     return true
 }
 
+export function getHeldItem(player: Player): ItemStack {
+    const equippable = player.getComponent('minecraft:equippable')
+
+    return equippable.getEquipment(EquipmentSlot.Mainhand)
+}
+
+export function setHeldItem(player: Player, stack: ItemStack): boolean {
+    const equippable = player.getComponent('minecraft:equippable')
+
+    return equippable.setEquipment(EquipmentSlot.Mainhand, stack)
+}
+
 export function decrementHeldItem(player: Player): boolean {
     const equippable = player.getComponent('minecraft:equippable')
     const slot = equippable.getEquipmentSlot(EquipmentSlot.Mainhand)
