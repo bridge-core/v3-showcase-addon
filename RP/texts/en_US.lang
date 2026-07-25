@@ -3,10 +3,11 @@ pack.description=
 
 entity.survival:plank_golem.name=Plank Golem
 
-item.survival:key.name=Key
+item.survival:key=Key
 item.spawn_egg.entity.survival:plank_golem.name=Plank Golem Spawn Egg
 item.spawn_egg.entity.v3:plank_golem.name=Plank Golem Spawn Egg
 
+tile.survival:player_spawn_point.name=Player Spawn Point
 tile.survival:monster_spawn_point.name=Monster Spawn Point
 tile.survival:structure_settings.name=Structure Settings Block
 tile.survival:lock.name=Lock
