@@ -9,7 +9,7 @@ function onEntityDieAfter(event: EntityDieAfterEvent): void {
 
     player.addTag('dead')
 
-    dimension.runCommand(`spawnpoint ${player.nameplateRenderDistance} ${location.x} ${location.y} ${location.z}`)
+    dimension.runCommand(`spawnpoint ${player.nameTag} ${location.x} ${location.y} ${location.z}`)
 }
 
 function onTick(): void {
