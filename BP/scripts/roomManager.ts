@@ -46,7 +46,7 @@ export class RoomManager {
             const block = dimension.getBlock(pos)
             const dynamicProperties = block.getComponent('minecraft:dynamic_properties')
 
-            dynamicProperties.set('spark_pp:room_id', room.id)
+            dynamicProperties.set('survival:room_id', room.id)
 
             console.log(`Registered lock at ${pos.x} ${pos.y} ${pos.z}`)
         }
