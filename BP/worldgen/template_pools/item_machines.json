@@ -1,0 +1,19 @@
+{
+	"format_version": "1.21.20",
+	"minecraft:template_pool": {
+		"description": {
+			"identifier": "survival:item_machines"
+		},
+		"elements": [
+			{
+				"element": {
+					"element_type": "minecraft:single_pool_element",
+					"location": "survival/item_machines/weapons_for_u",
+					"projection": "rigid",
+					"processors": "survival:empty"
+				},
+				"weight": 100
+			}
+		]
+	}
+}

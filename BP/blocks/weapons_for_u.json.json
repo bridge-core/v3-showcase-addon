@@ -1,0 +1,23 @@
+{
+	"format_version": "1.26.20",
+	"minecraft:block": {
+		"description": {
+			"identifier": "survival:weapons_for_u"
+		},
+		"components": {
+			"survival:item_machine": {
+				"name": "Weapons",
+				"price": 800,
+				"loot_table": "item_machines/weapons"
+			},
+			"minecraft:geometry": "minecraft:geometry.full_block",
+			"minecraft:material_instances": {
+				"*": {
+					"texture": "glowstone"
+				}
+			},
+			"minecraft:destructible_by_mining": false,
+			"minecraft:destructible_by_explosion": false
+		}
+	}
+}

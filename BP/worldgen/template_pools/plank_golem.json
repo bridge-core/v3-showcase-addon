@@ -1,0 +1,40 @@
+{
+    "format_version": "1.26.20",
+    "minecraft:template_pool": {
+        "description": {
+            "identifier": "survival:plank_golem"
+        },
+        "elements": [
+            {
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "survival/spawn/plank_golem_1",
+                    "projection": "rigid"
+                },
+                "weight": 50
+            },
+            {
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "survival/spawn/plank_golem_2",
+                    "projection": "rigid"
+                },
+                "weight": 50
+            },
+            {
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "survival/spawn/plank_golem_3",
+                    "projection": "rigid"
+                },
+                "weight": 50
+            },
+            {
+                "element": {
+                    "element_type": "minecraft:empty_pool_element"
+                },
+                "weight": 50
+            }
+        ]
+    }
+}

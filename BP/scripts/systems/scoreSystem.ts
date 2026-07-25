@@ -22,6 +22,18 @@ export function assignPlayerDefaultScore() {
     }
 }
 
+export function getPlayerScore(player: Player) {
+    const playerScore = world.scoreboard.getObjective("score")
+
+    return playerScore.getScore(player)
+}
+
+export function setPlayerScore(player: Player, score: number) {
+    const playerScore = world.scoreboard.getObjective("score")
+
+    return playerScore.setScore(player, score)
+}
+
 export function clearPlayerScore() {
     for (const player of world.getPlayers()) {
         world.scoreboard.getObjective("score").setScore(player, 0)
