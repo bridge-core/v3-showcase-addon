@@ -1,0 +1,23 @@
+{
+    "format_version": "1.26.20",
+    "minecraft:block": {
+        "description": {
+            "identifier": "survival:materials_for_u"
+        },
+        "components": {
+            "survival:item_machine": {
+                "name": "Materials",
+                "price": 600,
+                "loot_table": "item_machines/materials"
+            },
+            "minecraft:geometry": "minecraft:geometry.full_block",
+            "minecraft:material_instances": {
+                "*": {
+                    "texture": "acacia_wood"
+                }
+            },
+            "minecraft:destructible_by_mining": false,
+            "minecraft:destructible_by_explosion": false
+        }
+    }
+}

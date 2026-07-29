@@ -1,0 +1,23 @@
+{
+    "format_version": "1.26.20",
+    "minecraft:block": {
+        "description": {
+            "identifier": "survival:potions_for_u"
+        },
+        "components": {
+            "survival:item_machine": {
+                "name": "Potions",
+                "price": 600,
+                "loot_table": "item_machines/potions"
+            },
+            "minecraft:geometry": "minecraft:geometry.full_block",
+            "minecraft:material_instances": {
+                "*": {
+                    "texture": "cinnabar"
+                }
+            },
+            "minecraft:destructible_by_mining": false,
+            "minecraft:destructible_by_explosion": false
+        }
+    }
+}

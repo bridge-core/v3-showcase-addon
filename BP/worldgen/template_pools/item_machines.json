@@ -12,7 +12,25 @@
 					"projection": "rigid",
 					"processors": "survival:empty"
 				},
-				"weight": 100
+				"weight": 1
+			},
+			{
+				"element": {
+					"element_type": "minecraft:single_pool_element",
+					"location": "survival/item_machines/potions_for_u",
+					"projection": "rigid",
+					"processors": "survival:empty"
+				},
+				"weight": 1
+			},
+			{
+				"element": {
+					"element_type": "minecraft:single_pool_element",
+					"location": "survival/item_machines/materials_for_u",
+					"projection": "rigid",
+					"processors": "survival:empty"
+				},
+				"weight": 1
 			}
 		]
 	}
